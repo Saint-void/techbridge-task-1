@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="Explore practical Data Analytics and Web Development challenges from TechBridge."
+    >
+    <meta name="theme-color" content="#f6f7f3">
+    <title>Challenge Hub — TechBridge | Practical Internship Challenges</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    >
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body class="challenges-page">
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="index.html" aria-label="TechBridge home">
+          <img src="images/techbridge-logo.png" alt="TechBridge">
+          <span class="brand-caption">by Baselink Services Limited</span>
+        </a>
+        <nav class="main-nav" aria-label="Main navigation">
+          <a href="index.html">Home</a>
+          <a href="programs.html">Programs</a>
+          <a href="internship-tasks.html">Internship Roadmap</a>
+          <a href="challenges.html" class="nav-active" aria-current="page">Challenges</a>
+          <a href="index.html#internship">Internship</a>
+          <a href="index.html#how-it-works">How it works</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <a
+          class="button button-small button-dark header-cta"
+          href="https://forms.gle/8EbdSy5ttGfLZfjv5?utm_source=chatgpt.com"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Apply now <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="challenge-hero">
+        <div class="container challenge-hero-inner">
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="index.html">Home</a>
+            <span class="breadcrumb-separator" aria-hidden="true">/</span>
+            <span>Challenge Hub</span>
+          </nav>
+          <div class="challenge-hero-copy">
+            <p class="eyebrow"><span class="eyebrow-dot"></span> Learn by taking on a challenge</p>
+            <h1>Small challenges.<br><span>Real-world confidence.</span></h1>
+            <p class="challenge-hero-lead">
+              Explore hands-on ideas from both TechBridge tracks. Find a challenge that interests you, see what you
+              could learn, and discover what you can create along the way.
+            </p>
+            <a class="button button-primary" href="#challenge-browser">
+              Browse challenges <span aria-hidden="true">↓</span>
+            </a>
+          </div>
+          <div class="challenge-hero-stats" aria-label="Challenge Hub overview">
+            <div><strong>06</strong><span>Practical challenges</span></div>
+            <div><strong>02</strong><span>Learning tracks</span></div>
+            <div><strong>03</strong><span>Difficulty levels</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="challenge-browser" id="challenge-browser">
+        <div class="container">
+          <div class="challenge-section-heading">
+            <div>
+              <p class="eyebrow section-eyebrow">Find your next project</p>
+              <h2>Explore the challenges.</h2>
+            </div>
+            <p>Use the filters to find a track and difficulty that fit you. Open any challenge to see the full brief.</p>
+          </div>
+
+          <div class="challenge-filters" aria-label="Filter challenges">
+            <div class="challenge-filter-group" role="group" aria-label="Filter by track">
+              <span class="challenge-filter-label">TRACK</span>
+              <button class="challenge-filter is-active" type="button" data-track-filter="all" aria-pressed="true">All tracks</button>
+              <button class="challenge-filter" type="button" data-track-filter="analytics" aria-pressed="false">Data Analytics</button>
+              <button class="challenge-filter" type="button" data-track-filter="webdev" aria-pressed="false">Web Development</button>
+            </div>
+            <div class="challenge-filter-group" role="group" aria-label="Filter by difficulty">
+              <span class="challenge-filter-label">DIFFICULTY</span>
+              <button class="challenge-filter is-active" type="button" data-difficulty-filter="all" aria-pressed="true">All levels</button>
+              <button class="challenge-filter" type="button" data-difficulty-filter="Beginner" aria-pressed="false">Beginner</button>
+              <button class="challenge-filter" type="button" data-difficulty-filter="Intermediate" aria-pressed="false">Intermediate</button>
+              <button class="challenge-filter" type="button" data-difficulty-filter="Advanced" aria-pressed="false">Advanced</button>
+            </div>
+          </div>
+
+          <div class="challenge-results-bar">
+            <p id="challenge-results" aria-live="polite">Showing 6 challenges</p>
+            <span>Choose a challenge to explore its brief <span aria-hidden="true">↗</span></span>
+          </div>
+          <div class="challenge-grid" id="challenge-grid" aria-live="polite"></div>
+          <p class="challenge-empty" id="challenge-empty" hidden>No challenges match these filters. Try another combination.</p>
+        </div>
+      </section>
+
+      <section class="challenge-cta">
+        <div class="container challenge-cta-inner">
+          <div>
+            <p class="eyebrow eyebrow-light"><span class="eyebrow-dot"></span> A practical next step</p>
+            <h2>Ready to build your skills?</h2>
+            <p>Explore the full internship journey and see how each milestone builds on the last.</p>
+          </div>
+          <a class="button button-light" href="internship-tasks.html">
+            View the internship roadmap <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <dialog class="challenge-dialog" id="challenge-dialog" aria-labelledby="challenge-dialog-title">
+      <div class="challenge-dialog-content">
+        <form method="dialog" class="challenge-dialog-close-form">
+          <button class="challenge-dialog-close" type="submit" aria-label="Close challenge details">×</button>
+        </form>
+        <div id="challenge-details"></div>
+      </div>
+    </dialog>
+
+    <footer class="site-footer" id="contact">
+      <div class="container footer-main">
+        <div class="footer-brand">
+          <a class="brand" href="index.html" aria-label="TechBridge home">
+            <img src="images/techbridge-logo.png" alt="TechBridge">
+          </a>
+          <p>Bridging Learning to<br>Real-World Experience</p>
+        </div>
+        <div class="footer-contact">
+          <p class="footer-label">GET IN TOUCH</p>
+          <a href="mailto:techbridgebaslink@gmail.com">techbridgebaslink@gmail.com</a>
+        </div>
+        <div class="footer-socials">
+          <p class="footer-label">FOLLOW ALONG</p>
+          <a href="https://www.linkedin.com/company/techbridge-services/" target="_blank" rel="noopener noreferrer">
+            LinkedIn <span aria-hidden="true">↗</span>
+          </a>
+          <a href="https://www.facebook.com/p/Baselink-Services-100066771475783/" target="_blank" rel="noopener noreferrer">
+            Facebook <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+        <a class="back-to-top" href="#main">Back to top <span aria-hidden="true">↑</span></a>
+      </div>
+      <div class="container footer-bottom">
+        <span>© <span id="year">2026</span> TechBridge by Baselink Services Limited</span>
+        <span>Bridging Learning to Real-World Experience</span>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

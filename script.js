@@ -234,6 +234,233 @@ if (trackButtons.length && taskRoadmap && selectedTrackName) {
 }
 
 // ============================================
+// Interactive Challenge Hub
+// ============================================
+const challenges = [
+  {
+    id: "sales-snapshot",
+    title: "Sales Snapshot",
+    track: "analytics",
+    trackName: "Data Analytics",
+    difficulty: "Beginner",
+    description: "Clean a small sales spreadsheet and find out which products and months bring in the most revenue.",
+    outcome: "A tidy spreadsheet with a short summary of the strongest sales trends.",
+    objective: "Turn a sample sales export into a reliable, easy-to-understand snapshot of business performance.",
+    skills: ["Removing duplicates and correcting inconsistent values", "Using SUM, COUNTIF, and basic date formulas", "Comparing totals across products and months"],
+    tools: ["Google Sheets or Microsoft Excel"],
+    deliverable: "A cleaned workbook with a summary table and a few written observations.",
+    time: "2–3 hours",
+  },
+  {
+    id: "customer-patterns",
+    title: "Customer Patterns",
+    track: "analytics",
+    trackName: "Data Analytics",
+    difficulty: "Intermediate",
+    description: "Explore a customer dataset to understand repeat purchases and which customer groups return most often.",
+    outcome: "A concise customer analysis with practical retention recommendations.",
+    objective: "Use customer order history to identify repeat-purchase behavior and patterns that may help a small business retain customers.",
+    skills: ["Grouping and summarizing records", "Using Pivot Tables or SQL aggregations", "Turning findings into clear recommendations"],
+    tools: ["Google Sheets or Microsoft Excel", "Optional: SQLite or an online SQL editor"],
+    deliverable: "A one-page analysis with supporting summary tables and two evidence-based recommendations.",
+    time: "4–5 hours",
+  },
+  {
+    id: "spending-dashboard",
+    title: "Monthly Spending Dashboard",
+    track: "analytics",
+    trackName: "Data Analytics",
+    difficulty: "Advanced",
+    description: "Bring together category and transaction data to compare monthly spending and highlight unusual changes.",
+    outcome: "A dashboard that shows spending by month and category, with a short explanation of key changes.",
+    objective: "Combine related tables, calculate monthly totals, and present changes in spending in a way a non-technical audience can quickly understand.",
+    skills: ["Joining related tables with SQL", "Aggregating and validating totals", "Choosing clear visualizations and explaining trends"],
+    tools: ["SQLite or another SQL environment", "Google Sheets or Microsoft Excel"],
+    deliverable: "A documented SQL query and a dashboard with at least two charts and a written insight summary.",
+    time: "6–8 hours",
+  },
+  {
+    id: "responsive-event-page",
+    title: "Responsive Event Landing Page",
+    track: "webdev",
+    trackName: "Web Development",
+    difficulty: "Beginner",
+    description: "Build a polished landing page for a community event that works well on phones and larger screens.",
+    outcome: "A responsive page with event details, a clear call to action, and a consistent visual style.",
+    objective: "Practice structuring content with HTML and styling a readable, responsive layout with CSS.",
+    skills: ["Semantic HTML structure", "CSS layout and responsive media queries", "Accessible color contrast and link states"],
+    tools: ["HTML5", "CSS3", "A code editor and browser"],
+    deliverable: "A complete landing page that adapts to mobile and desktop widths.",
+    time: "3–4 hours",
+  },
+  {
+    id: "interactive-product-card",
+    title: "Interactive Product Showcase",
+    track: "webdev",
+    trackName: "Web Development",
+    difficulty: "Intermediate",
+    description: "Create a product page where visitors can switch between product options and see the details update instantly.",
+    outcome: "An interactive, responsive product page with working controls and clear product information.",
+    objective: "Use JavaScript to connect user actions to updates on the page, while keeping the experience usable with a keyboard.",
+    skills: ["Selecting and updating DOM elements", "Handling click events and application state", "Accessible buttons and responsive styling"],
+    tools: ["HTML5", "CSS3", "Vanilla JavaScript"],
+    deliverable: "A product page with at least two working options, updated details, and keyboard-friendly controls.",
+    time: "4–6 hours",
+  },
+  {
+    id: "contact-form-checker",
+    title: "Contact Form with Validation",
+    track: "webdev",
+    trackName: "Web Development",
+    difficulty: "Advanced",
+    description: "Build a contact form that checks user input and gives helpful feedback before a message can be sent.",
+    outcome: "A polished, accessible form with clear validation and confirmation states.",
+    objective: "Create a trustworthy form experience that guides users when fields are missing or incorrectly formatted.",
+    skills: ["HTML form semantics and labels", "JavaScript input validation and event handling", "Accessible error messages and focus management"],
+    tools: ["HTML5", "CSS3", "Vanilla JavaScript"],
+    deliverable: "A responsive form with required-field checks, email validation, inline feedback, and a success state.",
+    time: "5–7 hours",
+  },
+];
+
+const challengeGrid = document.getElementById("challenge-grid");
+const challengeResults = document.getElementById("challenge-results");
+const challengeEmpty = document.getElementById("challenge-empty");
+const challengeDialog = document.getElementById("challenge-dialog");
+const challengeDetails = document.getElementById("challenge-details");
+const trackFilters = document.querySelectorAll("[data-track-filter]");
+const difficultyFilters = document.querySelectorAll("[data-difficulty-filter]");
+
+if (
+  challengeGrid &&
+  challengeResults &&
+  challengeEmpty &&
+  challengeDialog instanceof HTMLDialogElement &&
+  challengeDetails
+) {
+  let selectedTrack = "all";
+  let selectedDifficulty = "all";
+
+  function renderChallenges() {
+    const filteredChallenges = challenges.filter((challenge) => {
+      const matchesTrack = selectedTrack === "all" || challenge.track === selectedTrack;
+      const matchesDifficulty =
+        selectedDifficulty === "all" || challenge.difficulty === selectedDifficulty;
+      return matchesTrack && matchesDifficulty;
+    });
+
+    challengeGrid.innerHTML = filteredChallenges
+      .map((challenge) => {
+        const difficultyClass = challenge.difficulty.toLowerCase();
+        return `
+          <article class="challenge-card">
+            <div class="challenge-card-top">
+              <span class="challenge-track-label ${challenge.track}">${challenge.trackName}</span>
+              <span class="challenge-level ${difficultyClass}">${challenge.difficulty}</span>
+            </div>
+            <div class="challenge-card-copy">
+              <p class="challenge-card-index">${challenge.track === "analytics" ? "DATA /" : "WEB /"} CHALLENGE</p>
+              <h3>${challenge.title}</h3>
+              <p>${challenge.description}</p>
+            </div>
+            <div class="challenge-outcome">
+              <span>YOU'LL CREATE</span>
+              <p>${challenge.outcome}</p>
+            </div>
+            <div class="challenge-card-footer">
+              <span>${challenge.time}</span>
+              <button class="challenge-view-button" type="button" data-challenge-id="${challenge.id}">
+                View challenge <span aria-hidden="true">↗</span>
+              </button>
+            </div>
+          </article>
+        `;
+      })
+      .join("");
+
+    challengeResults.textContent =
+      `Showing ${filteredChallenges.length} ${filteredChallenges.length === 1 ? "challenge" : "challenges"}`;
+    challengeEmpty.hidden = filteredChallenges.length > 0;
+  }
+
+  function setActiveFilter(buttons, selectedButton) {
+    buttons.forEach((button) => {
+      const isSelected = button === selectedButton;
+      button.classList.toggle("is-active", isSelected);
+      button.setAttribute("aria-pressed", String(isSelected));
+    });
+  }
+
+  function showChallengeDetails(challenge) {
+    challengeDetails.innerHTML = `
+      <p class="eyebrow section-eyebrow">Challenge brief <span aria-hidden="true">/</span> ${challenge.trackName}</p>
+      <div class="challenge-dialog-heading">
+        <div>
+          <span class="challenge-level ${challenge.difficulty.toLowerCase()}">${challenge.difficulty}</span>
+          <h2 id="challenge-dialog-title">${challenge.title}</h2>
+        </div>
+        <span class="challenge-dialog-time">${challenge.time}</span>
+      </div>
+      <p class="challenge-dialog-objective">${challenge.objective}</p>
+      <div class="challenge-detail-grid">
+        <section>
+          <h3>Skills to practice</h3>
+          <ul>${challenge.skills.map((skill) => `<li>${skill}</li>`).join("")}</ul>
+        </section>
+        <section>
+          <h3>Suggested tools</h3>
+          <ul>${challenge.tools.map((tool) => `<li>${tool}</li>`).join("")}</ul>
+        </section>
+      </div>
+      <div class="challenge-dialog-deliverable">
+        <span>YOUR DELIVERABLE</span>
+        <p>${challenge.deliverable}</p>
+      </div>
+    `;
+    challengeDialog.showModal();
+  }
+
+  trackFilters.forEach((button) => {
+    button.addEventListener("click", () => {
+      selectedTrack = button.dataset.trackFilter || "all";
+      setActiveFilter(trackFilters, button);
+      renderChallenges();
+    });
+  });
+
+  difficultyFilters.forEach((button) => {
+    button.addEventListener("click", () => {
+      selectedDifficulty = button.dataset.difficultyFilter || "all";
+      setActiveFilter(difficultyFilters, button);
+      renderChallenges();
+    });
+  });
+
+  challengeGrid.addEventListener("click", (event) => {
+    const target = event.target;
+    if (!(target instanceof Element)) {
+      return;
+    }
+
+    const button = target.closest("[data-challenge-id]");
+    const challenge = challenges.find(
+      (item) => item.id === button?.getAttribute("data-challenge-id"),
+    );
+    if (challenge) {
+      showChallengeDetails(challenge);
+    }
+  });
+
+  challengeDialog.addEventListener("click", (event) => {
+    if (event.target === challengeDialog) {
+      challengeDialog.close();
+    }
+  });
+
+  renderChallenges();
+}
+
+// ============================================
 // Interactive Program Filtering (programs.html)
 // ============================================
 const filterTabs = document.querySelectorAll(".filter-tab[data-filter]");
