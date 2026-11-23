@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta
       name="description"
-      content="Explore the eight practical projects in TechBridge's structured 30-day internship and see how your skills progress from the first page to a complete platform."
+      content="Explore all eight tasks in TechBridge's Data Analytics and Web Development tracks, and choose a 30-day internship journey."
     >
     <meta name="theme-color" content="#f6f7f3">
-    <title>Internship Tasks — TechBridge | Your 30-Day Journey</title>
+    <title>Internship Roadmap — TechBridge | 30-Day Internship</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -29,7 +29,7 @@
         <nav class="main-nav" aria-label="Main navigation">
           <a href="index.html">Home</a>
           <a href="programs.html">Programs</a>
-          <a href="internship-tasks.html" class="nav-active" aria-current="page">Internship Tasks</a>
+          <a href="internship-tasks.html" class="nav-active" aria-current="page">Internship Roadmap</a>
           <a href="index.html#internship">Internship</a>
           <a href="index.html#how-it-works">How it works</a>
           <a href="#contact">Contact</a>
@@ -51,14 +51,14 @@
           <nav class="breadcrumb" aria-label="Breadcrumb">
             <a href="index.html">Home</a>
             <span class="breadcrumb-separator" aria-hidden="true">/</span>
-            <span>Internship Tasks</span>
+            <span>Internship Roadmap</span>
           </nav>
           <div class="tasks-hero-copy">
-            <p class="eyebrow"><span class="eyebrow-dot"></span> Your 30-day build journey</p>
-            <h1>Eight projects.<br><span>One bigger picture.</span></h1>
+            <p class="eyebrow"><span class="eyebrow-dot"></span> Your 30-day practical internship</p>
+            <h1>Choose your track.<br><span>Build your future.</span></h1>
             <p class="tasks-hero-lead">
-              The TechBridge internship is a structured, 30-day practical experience. Across eight hands-on projects,
-              you'll progressively grow your web development skills—from your first homepage to a complete platform.
+              Explore two structured, 30-day journeys. Choose Data Analytics or Web Development to see eight hands-on
+              tasks and how your skills progress from beginner to intermediate.
             </p>
             <a class="button button-primary" href="#roadmap">
               Explore the journey <span aria-hidden="true">↓</span>
@@ -75,7 +75,7 @@
             </div>
             <div class="tasks-overview-item">
               <span class="overview-number">01 <span class="overview-arrow" aria-hidden="true">→</span> 08</span>
-              <span class="overview-label">From first page to full platform</span>
+              <span class="overview-label">A guided path from Day 1 to Day 26</span>
             </div>
           </div>
         </div>
@@ -85,16 +85,36 @@
         <div class="container">
           <div class="roadmap-heading">
             <div>
-              <p class="eyebrow section-eyebrow">The roadmap</p>
-              <h2>Build your way forward.</h2>
+              <p class="eyebrow section-eyebrow">Choose your track</p>
+              <h2>Two paths. Eight milestones.</h2>
             </div>
             <p>
-              Each milestone builds on the last. Follow the days to see what's ahead and how the work grows in
-              complexity as you develop your skills.
+              Select a track to explore its tasks, schedule, and growing level of challenge. You can switch tracks at
+              any time.
             </p>
           </div>
 
-          <ol class="task-roadmap">
+          <div class="track-switcher" role="group" aria-label="Choose an internship track">
+            <button class="track-button" type="button" data-track="analytics" aria-pressed="false">
+              <span class="track-button-icon" aria-hidden="true">▥</span>
+              <span>Data Analytics</span>
+              <span class="track-button-arrow" aria-hidden="true">→</span>
+            </button>
+            <button class="track-button" type="button" data-track="webdev" aria-pressed="true">
+              <span class="track-button-icon" aria-hidden="true">&lt;/&gt;</span>
+              <span>Web Development</span>
+              <span class="track-button-arrow" aria-hidden="true">→</span>
+            </button>
+          </div>
+
+          <div class="roadmap-track-status">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span class="roadmap-status-label">Currently viewing</span>
+            <strong id="selected-track-name" aria-live="polite">Web Development</strong>
+            <span class="roadmap-status-meta">8 tasks <span aria-hidden="true">·</span> 30-day internship</span>
+          </div>
+
+          <ol class="task-roadmap" id="task-roadmap" aria-label="Web Development internship tasks">
             <li class="roadmap-item">
               <span class="roadmap-marker" aria-hidden="true">01</span>
               <article class="task-card">
@@ -139,11 +159,11 @@
               <article class="task-card">
                 <div class="task-card-top">
                   <span class="task-day">DAY 11</span>
-                  <span class="task-level level-intermediate">Intermediate</span>
+                  <span class="task-level level-growing">Beginner → Intermediate</span>
                 </div>
                 <p class="task-kicker">Make the experience interactive</p>
-                <h3>Build an Interactive Task Tracker</h3>
-                <p>Use JavaScript to make the internship task experience interactive and allow progress to be tracked.</p>
+                <h3>Build an Interactive Internship Roadmap</h3>
+                <p>Use JavaScript to allow visitors to switch between the Data Analytics and Web Development internship tracks.</p>
                 <div class="task-card-foot"><span>Task 04</span><span>04 / 08</span></div>
               </article>
             </li>
@@ -165,7 +185,7 @@
               <article class="task-card">
                 <div class="task-card-top">
                   <span class="task-day">DAY 19</span>
-                  <span class="task-level level-advancing">Intermediate → Advanced beginner</span>
+                  <span class="task-level level-intermediate">Intermediate</span>
                 </div>
                 <p class="task-kicker">Turn work into a submission</p>
                 <h3>Build the Task Submission System</h3>
@@ -178,7 +198,7 @@
               <article class="task-card">
                 <div class="task-card-top">
                   <span class="task-day">DAY 22</span>
-                  <span class="task-level level-advanced">Advanced beginner</span>
+                  <span class="task-level level-intermediate">Intermediate</span>
                 </div>
                 <p class="task-kicker">Bring the intern's tools together</p>
                 <h3>Build the Intern Dashboard</h3>
@@ -191,7 +211,7 @@
               <article class="task-card">
                 <div class="task-card-top">
                   <span class="task-day">DAY 26</span>
-                  <span class="task-level level-advanced">Advanced beginner</span>
+                  <span class="task-level level-intermediate">Intermediate</span>
                 </div>
                 <p class="task-kicker">Connect every piece</p>
                 <h3>Build the Complete TechBridge Internship Platform</h3>

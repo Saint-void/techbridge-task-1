@@ -29,6 +29,211 @@ if (yearEl) {
 }
 
 // ============================================
+// Interactive Internship Roadmap
+// ============================================
+const trackTasks = {
+  analytics: [
+    {
+      number: 1,
+      day: 1,
+      title: "Data Cleaning Basics",
+      description:
+        "Clean a messy dataset using Google Sheets or Excel. Identify and fix duplicate rows, blank cells, inconsistent formatting, and incorrect data types.",
+      difficulty: "Beginner",
+    },
+    {
+      number: 2,
+      day: 4,
+      title: "Formulas & Pivot Tables",
+      description:
+        "Use spreadsheet formulas and Pivot Tables to answer questions and extract useful insights from a dataset.",
+      difficulty: "Beginner",
+    },
+    {
+      number: 3,
+      day: 8,
+      title: "Data Visualization",
+      description:
+        "Create charts and a simple dashboard that communicate useful insights from a dataset.",
+      difficulty: "Beginner → Intermediate",
+    },
+    {
+      number: 4,
+      day: 11,
+      title: "Introduction to SQL",
+      description:
+        "Practice basic SQL queries and use them to answer real-world questions about data.",
+      difficulty: "Beginner → Intermediate",
+    },
+    {
+      number: 5,
+      day: 15,
+      title: "SQL Joins & Aggregations",
+      description:
+        "Use JOIN, GROUP BY and aggregate functions such as COUNT, SUM and AVG to analyze information across multiple tables.",
+      difficulty: "Intermediate",
+    },
+    {
+      number: 6,
+      day: 19,
+      title: "Lookup Functions & Data Wrangling",
+      description:
+        "Use VLOOKUP or XLOOKUP to combine related datasets and handle data mismatches.",
+      difficulty: "Intermediate",
+    },
+    {
+      number: 7,
+      day: 22,
+      title: "Mini Analysis Project",
+      description:
+        "Complete a small end-to-end analysis involving data cleaning, formulas, Pivot Tables, charts and recommendations.",
+      difficulty: "Intermediate",
+    },
+    {
+      number: 8,
+      day: 26,
+      title: "Capstone Project",
+      description:
+        "Complete a larger project combining spreadsheet analysis and SQL using at least two related tables.",
+      difficulty: "Intermediate",
+    },
+  ],
+  webdev: [
+    {
+      number: 1,
+      day: 1,
+      title: "Build the TechBridge Homepage",
+      description:
+        "Create the first version of the TechBridge website using HTML and CSS.",
+      difficulty: "Beginner",
+    },
+    {
+      number: 2,
+      day: 4,
+      title: "Build the TechBridge Programs Experience",
+      description:
+        "Create a Programs experience presenting TechBridge's available learning programs.",
+      difficulty: "Beginner",
+    },
+    {
+      number: 3,
+      day: 8,
+      title: "Build the Internship Tasks Experience",
+      description:
+        "Create an interface that presents the TechBridge internship tasks and helps users understand the internship journey.",
+      difficulty: "Beginner → Intermediate",
+    },
+    {
+      number: 4,
+      day: 11,
+      title: "Build an Interactive Internship Roadmap",
+      description:
+        "Use JavaScript to allow visitors to switch between the Data Analytics and Web Development internship tracks.",
+      difficulty: "Beginner → Intermediate",
+    },
+    {
+      number: 5,
+      day: 15,
+      title: "Build the Intern Registration Experience",
+      description:
+        "Create a professional registration and onboarding interface for TechBridge interns.",
+      difficulty: "Intermediate",
+    },
+    {
+      number: 6,
+      day: 19,
+      title: "Build the Task Submission System",
+      description:
+        "Create an interface through which interns can prepare and submit their task work.",
+      difficulty: "Intermediate",
+    },
+    {
+      number: 7,
+      day: 22,
+      title: "Build the Intern Dashboard",
+      description:
+        "Create a dashboard where an intern can view their profile, progress, tasks and submissions.",
+      difficulty: "Intermediate",
+    },
+    {
+      number: 8,
+      day: 26,
+      title: "Build the Complete TechBridge Internship Platform",
+      description:
+        "Combine the different components created during the internship into a complete TechBridge platform.",
+      difficulty: "Intermediate",
+    },
+  ],
+};
+
+const trackNames = {
+  analytics: "Data Analytics",
+  webdev: "Web Development",
+};
+const trackButtons = document.querySelectorAll(".track-button[data-track]");
+const taskRoadmap = document.getElementById("task-roadmap");
+const selectedTrackName = document.getElementById("selected-track-name");
+
+function renderTrack(trackKey) {
+  const tasks = trackTasks[trackKey];
+  if (!tasks || !taskRoadmap || !selectedTrackName) {
+    return;
+  }
+
+  const trackName = trackNames[trackKey];
+  selectedTrackName.textContent = trackName;
+  taskRoadmap.setAttribute("aria-label", `${trackName} internship tasks`);
+  taskRoadmap.innerHTML = tasks
+    .map((task) => {
+      const taskNumber = String(task.number).padStart(2, "0");
+      const dayNumber = String(task.day).padStart(2, "0");
+      const difficultyClass =
+        task.difficulty === "Beginner"
+          ? "level-beginner"
+          : task.difficulty === "Intermediate"
+            ? "level-intermediate"
+            : "level-growing";
+
+      return `
+        <li class="roadmap-item">
+          <span class="roadmap-marker" aria-hidden="true">${taskNumber}</span>
+          <article class="task-card">
+            <div class="task-card-top">
+              <span class="task-day">DAY ${dayNumber}</span>
+              <span class="task-level ${difficultyClass}">${task.difficulty}</span>
+            </div>
+            <h3>${task.title}</h3>
+            <p>${task.description}</p>
+            <div class="task-card-foot">
+              <span>Task ${taskNumber}</span>
+              <span>${taskNumber} / 08</span>
+            </div>
+          </article>
+        </li>
+      `;
+    })
+    .join("");
+
+  trackButtons.forEach((button) => {
+    const isSelected = button.dataset.track === trackKey;
+    button.setAttribute("aria-pressed", String(isSelected));
+  });
+}
+
+if (trackButtons.length && taskRoadmap && selectedTrackName) {
+  trackButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const trackKey = button.dataset.track;
+      if (trackKey && trackTasks[trackKey]) {
+        renderTrack(trackKey);
+      }
+    });
+  });
+
+  renderTrack("webdev");
+}
+
+// ============================================
 // Interactive Program Filtering (programs.html)
 // ============================================
 const filterTabs = document.querySelectorAll(".filter-tab[data-filter]");
