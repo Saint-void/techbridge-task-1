@@ -1105,7 +1105,7 @@ h1 span {
   }
 
   .main-nav {
-    gap: 17px;
+    gap: 10px;
   }
 
   .main-nav a {
@@ -3874,6 +3874,882 @@ h1 span {
 @media (prefers-reduced-motion: reduce) {
   .challenge-card,
   .challenge-filter {
+    transition: none;
+  }
+}
+
+/* ==========================================================================
+   INTERN DASHBOARD (TASK 6)
+   ========================================================================== */
+
+.dashboard-welcome {
+  padding: 32px 0 0;
+  background:
+    radial-gradient(ellipse at 87% 35%, rgba(211, 239, 117, 0.21), transparent 34%),
+    var(--paper);
+}
+
+.dashboard-welcome-inner {
+  position: relative;
+}
+
+.dashboard-welcome-copy {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 30px;
+  padding: 28px 0 37px;
+}
+
+.dashboard-welcome h1 {
+  margin: 0 0 12px;
+  font-family: var(--font-display);
+  font-size: clamp(42px, 6vw, 66px);
+  font-weight: 700;
+  letter-spacing: -0.07em;
+  line-height: 1.05;
+}
+
+.dashboard-welcome h1 span {
+  color: var(--green);
+}
+
+.dashboard-welcome-lead {
+  max-width: 550px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.dashboard-intern-card {
+  min-width: 320px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border: 1px solid #e4e9e3;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.78);
+}
+
+.dashboard-avatar {
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--green-dark);
+  color: var(--lime);
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.dashboard-intern-card > div {
+  display: grid;
+  gap: 2px;
+}
+
+.dashboard-intern-card strong {
+  font-family: var(--font-display);
+  font-size: 12px;
+}
+
+.dashboard-intern-card > div > span {
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.intern-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  padding: 6px 8px;
+  border-radius: 99px;
+  background: #eef4df;
+  color: #4a662d;
+  font-size: 9px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.intern-status i,
+.dashboard-task-status i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.dashboard-welcome-foot {
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  border-top: 1px solid var(--line);
+  color: #7d8982;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+.dashboard-welcome-foot a {
+  color: var(--green-dark);
+  font-size: 10px;
+  letter-spacing: 0;
+  text-decoration: none;
+}
+
+.dashboard-welcome-foot a:hover {
+  color: #437e5e;
+}
+
+.dashboard-main-section {
+  padding: 50px 0 100px;
+  background: #fff;
+}
+
+.dashboard-content-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(270px, 0.7fr);
+  gap: 16px;
+}
+
+.progress-panel,
+.dashboard-challenge-panel {
+  min-height: 214px;
+  border: 1px solid #e6ebe5;
+  border-radius: 5px;
+}
+
+.progress-panel {
+  padding: 24px 26px 19px;
+  background: #fff;
+}
+
+.dashboard-panel-heading,
+.progress-summary,
+.progress-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.dashboard-panel-heading .eyebrow {
+  margin-bottom: 7px;
+}
+
+.dashboard-panel-heading h2,
+.dashboard-section-heading h2,
+.dashboard-challenge-panel h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 21px;
+  letter-spacing: -0.045em;
+  line-height: 1.2;
+}
+
+.progress-days {
+  padding: 6px 9px;
+  border-radius: 99px;
+  background: #f0f3eb;
+  color: #607068;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+.progress-summary {
+  margin-top: 25px;
+}
+
+.progress-summary > div {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.progress-fraction {
+  display: flex;
+}
+
+.progress-summary > div > strong {
+  font-family: var(--font-display);
+  font-size: 31px;
+  letter-spacing: -0.06em;
+}
+
+.progress-summary > div > strong span {
+  color: #98a19b;
+  font-size: 19px;
+}
+
+.progress-summary > div > span {
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.progress-percent {
+  color: var(--green);
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 800;
+}
+
+.dashboard-progress-track {
+  height: 7px;
+  margin-top: 9px;
+  overflow: hidden;
+  border-radius: 99px;
+  background: #edf0ea;
+}
+
+.dashboard-progress-track span {
+  width: 25%;
+  height: 100%;
+  display: block;
+  border-radius: inherit;
+  background: var(--green);
+  transition: width 300ms ease;
+}
+
+.progress-foot {
+  margin-top: 11px;
+  color: var(--muted);
+  font-size: 9px;
+}
+
+.progress-foot span:last-child {
+  color: var(--green);
+  font-weight: 700;
+}
+
+.dashboard-challenge-panel {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 25px 24px;
+  overflow: hidden;
+  background: #f6f8f1;
+  text-decoration: none;
+  transition: border-color 180ms ease, transform 180ms ease;
+}
+
+.dashboard-challenge-panel:hover {
+  transform: translateY(-2px);
+  border-color: #b6c7ae;
+}
+
+.dashboard-challenge-icon {
+  width: 38px;
+  height: 38px;
+  flex: 0 0 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--green-dark);
+  color: var(--lime);
+  font-size: 18px;
+}
+
+.dashboard-mini-label {
+  display: block;
+  margin: 1px 0 7px;
+  color: #728078;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.dashboard-challenge-panel h2 {
+  font-size: 19px;
+}
+
+.dashboard-challenge-panel p {
+  max-width: 250px;
+  margin: 6px 0 13px;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.6;
+}
+
+.dashboard-challenge-link {
+  color: var(--green-dark);
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.dashboard-challenge-arrow {
+  position: absolute;
+  top: 22px;
+  right: 23px;
+  color: #7b8b7d;
+  font-size: 16px;
+}
+
+.dashboard-task-section {
+  margin-top: 76px;
+}
+
+.dashboard-section-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 25px;
+}
+
+.dashboard-section-heading .eyebrow {
+  margin-bottom: 8px;
+}
+
+.dashboard-section-heading h2 {
+  font-size: clamp(28px, 3.5vw, 38px);
+}
+
+.dashboard-section-heading > p {
+  max-width: 400px;
+  margin: 0 0 3px;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.dashboard-task-filters {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.dashboard-task-filter {
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border: 1px solid #e2e8e1;
+  border-radius: 99px;
+  background: #fff;
+  color: #52605a;
+  cursor: pointer;
+  font: inherit;
+  font-size: 10px;
+  font-weight: 600;
+  transition: border-color 160ms ease, background 160ms ease, color 160ms ease;
+}
+
+.dashboard-task-filter span {
+  color: #8d9991;
+  font-size: 9px;
+}
+
+.dashboard-task-filter:hover {
+  border-color: #9db8a4;
+}
+
+.dashboard-task-filter.is-active {
+  border-color: var(--green-dark);
+  background: var(--green-dark);
+  color: #fff;
+}
+
+.dashboard-task-filter.is-active span {
+  color: var(--lime);
+}
+
+.dashboard-task-filter:focus-visible,
+.dashboard-view-task:focus-visible,
+.dashboard-complete-task:focus-visible,
+.technology-tab:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 3px;
+}
+
+.dashboard-task-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 13px;
+}
+
+.dashboard-task-card {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 18px 20px 0;
+  border: 1px solid #e5eae4;
+  border-left: 3px solid #cbd4cc;
+  border-radius: 5px;
+  background: #fff;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.dashboard-task-card.status-completed {
+  border-left-color: #8aad62;
+}
+
+.dashboard-task-card.status-in-progress {
+  border-left-color: var(--orange);
+  box-shadow: 0 8px 25px rgba(23, 35, 33, 0.045);
+}
+
+.dashboard-task-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.dashboard-task-number {
+  color: #839087;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+}
+
+.dashboard-task-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 8px;
+  border-radius: 99px;
+  background: #f0f2ef;
+  color: #69756e;
+  font-size: 8px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.dashboard-task-card.status-completed .dashboard-task-status,
+.status-label-completed {
+  background: #eef4df;
+  color: #4a662d;
+}
+
+.dashboard-task-card.status-in-progress .dashboard-task-status,
+.status-label-in-progress {
+  background: #f9eee5;
+  color: #976239;
+}
+
+.dashboard-task-day {
+  margin: 16px 0 5px;
+  color: #728078;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.dashboard-task-card h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 16px;
+  letter-spacing: -0.035em;
+  line-height: 1.35;
+}
+
+.dashboard-task-description {
+  margin: 8px 0 17px;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.65;
+}
+
+.dashboard-task-card-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 48px;
+  margin-top: auto;
+  border-top: 1px solid #edf0ec;
+}
+
+.dashboard-view-task,
+.dashboard-complete-task {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  font-size: 9px;
+  font-weight: 800;
+}
+
+.dashboard-view-task {
+  padding: 8px 0;
+  color: var(--green-dark);
+}
+
+.dashboard-view-task span {
+  margin-left: 3px;
+  color: #83905a;
+}
+
+.dashboard-complete-task {
+  padding: 8px 0 8px 8px;
+  color: #768178;
+  text-align: right;
+}
+
+.dashboard-task-card:not(.status-completed) .dashboard-complete-task {
+  color: var(--green);
+}
+
+.dashboard-no-tasks {
+  margin: 0;
+  padding: 35px 20px;
+  border: 1px dashed #cbd6c9;
+  border-radius: 5px;
+  color: var(--muted);
+  font-size: 12px;
+  text-align: center;
+}
+
+.technology-section {
+  margin-top: 88px;
+}
+
+.technology-explorer {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  min-height: 284px;
+  overflow: hidden;
+  border: 1px solid #e5eae4;
+  border-radius: 5px;
+  background: #fff;
+}
+
+.technology-tabs {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 16px;
+  border-right: 1px solid #e8ece7;
+  background: #f8f9f6;
+}
+
+.technology-tab {
+  min-height: 43px;
+  padding: 10px 12px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: transparent;
+  color: #55625b;
+  cursor: pointer;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  text-align: left;
+  transition: border-color 160ms ease, background 160ms ease, color 160ms ease;
+}
+
+.technology-tab:hover {
+  border-color: #e2e8df;
+  background: #fff;
+}
+
+.technology-tab.is-active {
+  border-color: #dfe6dc;
+  background: #fff;
+  color: var(--green-dark);
+  box-shadow: 0 3px 12px rgba(23, 35, 33, 0.04);
+}
+
+.technology-panel {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  padding: 32px clamp(24px, 5vw, 55px);
+  overflow: hidden;
+}
+
+.technology-panel-copy {
+  position: relative;
+  z-index: 1;
+  max-width: 570px;
+}
+
+.technology-panel-kicker {
+  color: #78857c;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+}
+
+.technology-panel h3 {
+  margin: 7px 0 10px;
+  font-family: var(--font-display);
+  font-size: 29px;
+  letter-spacing: -0.055em;
+}
+
+.technology-panel p {
+  margin: 0 0 9px;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.75;
+}
+
+.technology-learn-link {
+  display: inline-flex;
+  gap: 7px;
+  margin-top: 7px;
+  color: var(--green-dark);
+  font-size: 10px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.technology-learn-link:hover {
+  color: #437e5e;
+}
+
+.technology-panel-mark {
+  position: absolute;
+  right: 8%;
+  bottom: -66px;
+  color: rgba(22, 75, 60, 0.06);
+  font-family: var(--font-display);
+  font-size: clamp(150px, 22vw, 260px);
+  font-weight: 800;
+  letter-spacing: -0.1em;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.dashboard-task-dialog {
+  width: min(660px, calc(100% - 32px));
+  max-width: none;
+  max-height: min(84vh, 720px);
+  padding: 0;
+  overflow: auto;
+  border: 1px solid #e2e7e1;
+  border-radius: 7px;
+  background: #fff;
+  color: var(--ink);
+  box-shadow: 0 28px 90px rgba(15, 32, 25, 0.25);
+}
+
+.dashboard-task-dialog::backdrop {
+  background: rgba(15, 32, 25, 0.62);
+  backdrop-filter: blur(3px);
+}
+
+.dashboard-dialog-content {
+  position: relative;
+  padding: 42px clamp(22px, 5vw, 46px) 38px;
+}
+
+.dashboard-dialog-close-form {
+  position: absolute;
+  top: 13px;
+  right: 15px;
+  margin: 0;
+}
+
+.dashboard-dialog-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.dashboard-dialog-heading h2 {
+  margin: 8px 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(26px, 5vw, 38px);
+  letter-spacing: -0.055em;
+  line-height: 1.15;
+}
+
+.dashboard-dialog-heading > .dashboard-task-status {
+  margin-top: 5px;
+}
+
+.dashboard-dialog-description {
+  margin: 18px 0 22px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.dashboard-dialog-outcome {
+  margin-top: 12px;
+}
+
+@media (max-width: 900px) {
+  .dashboard-welcome-copy {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 22px;
+  }
+
+  .dashboard-content-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(240px, 0.8fr);
+  }
+
+  .technology-explorer {
+    grid-template-columns: 180px minmax(0, 1fr);
+  }
+}
+
+@media (min-width: 641px) and (max-width: 760px) {
+  .header-inner {
+    min-height: auto;
+    flex-wrap: wrap;
+    gap: 0;
+    padding-top: 13px;
+  }
+
+  .brand {
+    margin-bottom: 10px;
+  }
+
+  .header-cta {
+    margin-left: auto;
+  }
+
+  .main-nav {
+    order: 2;
+    width: calc(100% + 48px);
+    margin-inline: -24px;
+    padding: 10px 24px 12px;
+    overflow-x: auto;
+    border-top: 1px solid rgba(23, 35, 33, 0.08);
+    gap: 24px;
+    scrollbar-width: none;
+  }
+
+  .main-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .main-nav a {
+    flex-shrink: 0;
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 760px) {
+  .dashboard-main-section {
+    padding: 38px 0 76px;
+  }
+
+  .dashboard-content-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .progress-panel,
+  .dashboard-challenge-panel {
+    min-height: auto;
+  }
+
+  .dashboard-section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .dashboard-task-section {
+    margin-top: 61px;
+  }
+
+  .technology-section {
+    margin-top: 67px;
+  }
+
+  .technology-explorer {
+    grid-template-columns: 1fr;
+  }
+
+  .technology-tabs {
+    flex-direction: row;
+    overflow-x: auto;
+    border-right: 0;
+    border-bottom: 1px solid #e8ece7;
+  }
+
+  .technology-tab {
+    flex: 0 0 auto;
+    text-align: center;
+  }
+}
+
+@media (max-width: 560px) {
+  .dashboard-welcome {
+    padding-top: 25px;
+  }
+
+  .dashboard-welcome-copy {
+    padding: 18px 0 28px;
+  }
+
+  .dashboard-intern-card {
+    width: 100%;
+    min-width: 0;
+    flex-wrap: wrap;
+  }
+
+  .intern-status {
+    margin-left: 54px;
+  }
+
+  .dashboard-welcome-foot {
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+    padding-block: 11px;
+  }
+
+  .progress-panel {
+    padding: 20px 17px 17px;
+  }
+
+  .progress-summary > div {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .dashboard-task-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-task-filter {
+    min-height: 34px;
+    padding-inline: 9px;
+    font-size: 9px;
+  }
+
+  .technology-panel {
+    min-height: 290px;
+    padding: 26px 21px;
+  }
+
+  .technology-panel-mark {
+    right: 3%;
+    bottom: -44px;
+    font-size: 175px;
+  }
+
+  .dashboard-dialog-heading {
+    flex-direction: column;
+    gap: 9px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dashboard-progress-track span,
+  .dashboard-challenge-panel,
+  .dashboard-task-filter,
+  .technology-tab {
     transition: none;
   }
 }

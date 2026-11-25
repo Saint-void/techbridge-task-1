@@ -495,6 +495,407 @@ if (filterTabs.length && programSections.length) {
 }
 
 // ============================================
+// Interactive Intern Dashboard (TASK 6)
+// ============================================
+const dashboardTasks = [
+  {
+    number: 1,
+    day: 1,
+    title: "Build the TechBridge Homepage",
+    description: "Create the first version of the TechBridge website using HTML and CSS.",
+    status: "completed",
+    objective: "Create a welcoming homepage that introduces TechBridge and guides visitors to the information they need.",
+    deliverable: "A responsive homepage with clear sections, navigation, and a call to action.",
+  },
+  {
+    number: 2,
+    day: 4,
+    title: "Build the TechBridge Programs Experience",
+    description: "Create a Programs experience presenting TechBridge's available learning programs.",
+    status: "completed",
+    objective: "Help visitors understand the available learning tracks and choose a program that interests them.",
+    deliverable: "A Programs page that presents Data Analytics and Web Development clearly.",
+  },
+  {
+    number: 3,
+    day: 8,
+    title: "Build the Internship Tasks Experience",
+    description: "Create an interface that presents the TechBridge internship tasks and helps users understand the internship journey.",
+    status: "in-progress",
+    objective: "Show prospective interns the milestones and practical work they can expect during the internship.",
+    deliverable: "A clear task experience with task descriptions, a visible schedule, and a consistent design.",
+  },
+  {
+    number: 4,
+    day: 11,
+    title: "Build an Interactive Internship Roadmap",
+    description: "Use JavaScript to allow visitors to switch between the Data Analytics and Web Development internship tracks.",
+    status: "not-started",
+    objective: "Let visitors explore either internship track without reloading the page.",
+    deliverable: "An interactive roadmap that displays all eight tasks for the selected track.",
+  },
+  {
+    number: 5,
+    day: 15,
+    title: "Build the Intern Registration Experience",
+    description: "Create a professional registration and onboarding interface for TechBridge interns.",
+    status: "not-started",
+    objective: "Design a welcoming and straightforward registration flow for prospective interns.",
+    deliverable: "A responsive registration experience with clear form labels and onboarding information.",
+  },
+  {
+    number: 6,
+    day: 19,
+    title: "Build the Task Submission System",
+    description: "Create an interface through which interns can prepare and submit their task work.",
+    status: "not-started",
+    objective: "Make it easy for interns to understand submission requirements and prepare their work for review.",
+    deliverable: "A task submission interface with clear instructions, a submission form, and status feedback.",
+  },
+  {
+    number: 7,
+    day: 22,
+    title: "Build the Intern Dashboard",
+    description: "Create a dashboard where an intern can view their profile, progress, tasks and submissions.",
+    status: "not-started",
+    objective: "Bring an intern's key information and progress together in a useful personal workspace.",
+    deliverable: "A dashboard with profile details, progress indicators, tasks, and submission status.",
+  },
+  {
+    number: 8,
+    day: 26,
+    title: "Build the Complete TechBridge Internship Platform",
+    description: "Combine the different components created during the internship into a complete TechBridge platform.",
+    status: "not-started",
+    objective: "Bring the internship experiences together into a cohesive, accessible platform.",
+    deliverable: "A responsive TechBridge platform that connects the homepage, programs, roadmap, registration, and intern tools.",
+  },
+];
+
+const technologyDetails = {
+  nextjs: {
+    title: "Next.js",
+    kicker: "REACT FRAMEWORK",
+    mark: "N.",
+    description:
+      "Next.js is a React framework for building full-stack web applications. It adds features such as file-based routing, server rendering, and server-side capabilities.",
+    extra:
+      "Teams use it for production websites and applications that benefit from a structured React setup and flexible rendering options.",
+    link: "https://nextjs.org/learn",
+  },
+  vue: {
+    title: "Vue.js",
+    kicker: "JAVASCRIPT FRAMEWORK",
+    mark: "V.",
+    description:
+      "Vue is a JavaScript framework for building user interfaces. Its component-based approach helps developers build pages and applications from reusable pieces.",
+    extra:
+      "Vue can enhance one part of a page or power a complete single-page application.",
+    link: "https://vuejs.org/guide/introduction.html",
+  },
+  angular: {
+    title: "Angular",
+    kicker: "WEB APPLICATION PLATFORM",
+    mark: "A.",
+    description:
+      "Angular is a TypeScript-based platform for building web applications. It provides an integrated set of tools and patterns for components, routing, and forms.",
+    extra:
+      "It is often used for larger applications where teams want a consistent, full-featured framework.",
+    link: "https://angular.dev/overview",
+  },
+  backend: {
+    title: "Backend development",
+    kicker: "BEHIND THE INTERFACE",
+    mark: "{ }",
+    description:
+      "Backend development builds the server-side logic and services a website depends on. It handles tasks such as data access, business rules, authentication, and APIs that connect to the frontend.",
+    extra:
+      "Common choices include Node.js with Express, Django or Flask with Python, and .NET. The best fit depends on the product, team, and existing systems.",
+    link: "https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Server-side",
+  },
+};
+
+const dashboardTaskGrid = document.getElementById("dashboard-task-grid");
+const dashboardProgressFraction = document.getElementById("progress-fraction");
+const dashboardProgressPercent = document.getElementById("progress-percent");
+const dashboardProgressTrack = document.getElementById("dashboard-progress-track");
+const dashboardProgressFill = document.getElementById("dashboard-progress-fill");
+const dashboardRemainingCount = document.getElementById("remaining-count");
+const dashboardNextTaskLabel = document.getElementById("next-task-label");
+const dashboardTaskFilters = document.querySelectorAll("[data-task-filter]");
+const dashboardNoTasks = document.getElementById("dashboard-no-tasks");
+const dashboardTaskDialog = document.getElementById("dashboard-task-dialog");
+const dashboardTaskDetails = document.getElementById("dashboard-task-details");
+const technologyTabs = document.querySelectorAll("[data-technology]");
+
+if (
+  dashboardTaskGrid &&
+  dashboardProgressFraction &&
+  dashboardProgressPercent &&
+  dashboardProgressTrack &&
+  dashboardProgressFill &&
+  dashboardRemainingCount &&
+  dashboardNextTaskLabel &&
+  dashboardNoTasks &&
+  dashboardTaskDialog instanceof HTMLDialogElement &&
+  dashboardTaskDetails
+) {
+  const taskStorageKey = "techbridge-dashboard-task-status-v1";
+  const validTaskStatuses = ["completed", "in-progress", "not-started"];
+  let activeTaskFilter = "all";
+
+  try {
+    const savedStatuses = JSON.parse(localStorage.getItem(taskStorageKey) || "null");
+    if (Array.isArray(savedStatuses)) {
+      savedStatuses.forEach((status, index) => {
+        if (dashboardTasks[index] && validTaskStatuses.includes(status)) {
+          dashboardTasks[index].status = status;
+        }
+      });
+    }
+  } catch (error) {
+    console.warn("Could not restore saved internship task progress.", error);
+  }
+
+  function getTaskStatusLabel(status) {
+    return status === "in-progress"
+      ? "In Progress"
+      : status === "not-started"
+        ? "Not Started"
+        : "Completed";
+  }
+
+  function updateDashboardProgress() {
+    const completedCount = dashboardTasks.filter(
+      (task) => task.status === "completed",
+    ).length;
+    const remainingCount = dashboardTasks.length - completedCount;
+    const progressPercent = (completedCount / dashboardTasks.length) * 100;
+    const currentTask = dashboardTasks.find((task) => task.status === "in-progress");
+
+    dashboardProgressFraction.innerHTML = `${completedCount} <span>/ ${dashboardTasks.length}</span>`;
+    dashboardProgressPercent.textContent = `${
+      Number.isInteger(progressPercent) ? progressPercent : progressPercent.toFixed(1)
+    }%`;
+    dashboardProgressTrack.setAttribute("aria-valuenow", String(completedCount));
+    dashboardProgressTrack.setAttribute("aria-valuemax", String(dashboardTasks.length));
+    dashboardProgressTrack.setAttribute(
+      "aria-label",
+      `${completedCount} of ${dashboardTasks.length} internship tasks completed`,
+    );
+    dashboardProgressFill.style.width = `${progressPercent}%`;
+    dashboardRemainingCount.textContent =
+      `${remainingCount} ${remainingCount === 1 ? "task" : "tasks"} remaining`;
+    dashboardNextTaskLabel.textContent = currentTask
+      ? `Next up: Task ${currentTask.number}`
+      : "All tasks completed";
+
+    document.getElementById("completed-filter-count").textContent = String(completedCount);
+    document.getElementById("in-progress-filter-count").textContent = String(
+      dashboardTasks.filter((task) => task.status === "in-progress").length,
+    );
+    document.getElementById("not-started-filter-count").textContent = String(
+      dashboardTasks.filter((task) => task.status === "not-started").length,
+    );
+  }
+
+  function renderDashboardTasks() {
+    const visibleTasks = dashboardTasks.filter(
+      (task) => activeTaskFilter === "all" || task.status === activeTaskFilter,
+    );
+
+    dashboardTaskGrid.innerHTML = visibleTasks
+      .map((task) => {
+        const statusLabel = getTaskStatusLabel(task.status);
+        const actionLabel =
+          task.status === "completed" ? "Mark as In Progress" : "Mark as Completed";
+        const actionValue = task.status === "completed" ? "in-progress" : "completed";
+        return `
+          <article class="dashboard-task-card status-${task.status}">
+            <div class="dashboard-task-card-top">
+              <span class="dashboard-task-number">TASK ${String(task.number).padStart(2, "0")}</span>
+              <span class="dashboard-task-status"><i aria-hidden="true"></i>${statusLabel}</span>
+            </div>
+            <p class="dashboard-task-day">DAY ${String(task.day).padStart(2, "0")}</p>
+            <h3>${task.title}</h3>
+            <p class="dashboard-task-description">${task.description}</p>
+            <div class="dashboard-task-card-actions">
+              <button type="button" class="dashboard-view-task" data-view-task="${task.number}">View Task <span aria-hidden="true">↗</span></button>
+              <button type="button" class="dashboard-complete-task" data-set-task-status="${task.number}" data-next-status="${actionValue}">${actionLabel}</button>
+            </div>
+          </article>
+        `;
+      })
+      .join("");
+
+    dashboardNoTasks.hidden = visibleTasks.length > 0;
+  }
+
+  function saveTaskStatuses() {
+    localStorage.setItem(
+      taskStorageKey,
+      JSON.stringify(dashboardTasks.map((task) => task.status)),
+    );
+  }
+
+  function updateTaskStatus(taskNumber, nextStatus) {
+    const task = dashboardTasks.find((item) => item.number === taskNumber);
+    if (!task || !validTaskStatuses.includes(nextStatus)) {
+      return;
+    }
+
+    if (nextStatus === "completed") {
+      task.status = "completed";
+      const nextTask = dashboardTasks.find((item) => item.status === "not-started");
+      if (nextTask) {
+        nextTask.status = "in-progress";
+      }
+    } else {
+      dashboardTasks.forEach((item) => {
+        if (item.status === "in-progress") {
+          item.status = "not-started";
+        }
+      });
+      task.status = "in-progress";
+    }
+
+    saveTaskStatuses();
+    updateDashboardProgress();
+    renderDashboardTasks();
+  }
+
+  function showDashboardTask(task) {
+    dashboardTaskDetails.innerHTML = `
+      <p class="eyebrow section-eyebrow">Internship task <span aria-hidden="true">/</span> Day ${task.day}</p>
+      <div class="dashboard-dialog-heading">
+        <div>
+          <span class="dashboard-task-number">TASK ${String(task.number).padStart(2, "0")}</span>
+          <h2 id="dashboard-dialog-title">${task.title}</h2>
+        </div>
+        <span class="dashboard-task-status status-label-${task.status}"><i aria-hidden="true"></i>${getTaskStatusLabel(task.status)}</span>
+      </div>
+      <p class="dashboard-dialog-description">${task.description}</p>
+      <div class="challenge-dialog-deliverable">
+        <span>OBJECTIVE</span>
+        <p>${task.objective}</p>
+      </div>
+      <div class="challenge-dialog-deliverable dashboard-dialog-outcome">
+        <span>EXPECTED OUTCOME</span>
+        <p>${task.deliverable}</p>
+      </div>
+    `;
+    dashboardTaskDialog.showModal();
+  }
+
+  dashboardTaskFilters.forEach((button) => {
+    button.addEventListener("click", () => {
+      activeTaskFilter = button.dataset.taskFilter || "all";
+      dashboardTaskFilters.forEach((filterButton) => {
+        const isSelected = filterButton === button;
+        filterButton.classList.toggle("is-active", isSelected);
+        filterButton.setAttribute("aria-pressed", String(isSelected));
+      });
+      renderDashboardTasks();
+    });
+  });
+
+  dashboardTaskGrid.addEventListener("click", (event) => {
+    const target = event.target;
+    if (!(target instanceof Element)) {
+      return;
+    }
+
+    const statusButton = target.closest("[data-set-task-status]");
+    if (statusButton) {
+      updateTaskStatus(
+        Number(statusButton.getAttribute("data-set-task-status")),
+        statusButton.getAttribute("data-next-status"),
+      );
+      return;
+    }
+
+    const viewButton = target.closest("[data-view-task]");
+    const task = dashboardTasks.find(
+      (item) => item.number === Number(viewButton?.getAttribute("data-view-task")),
+    );
+    if (task) {
+      showDashboardTask(task);
+    }
+  });
+
+  dashboardTaskDialog.addEventListener("click", (event) => {
+    if (event.target === dashboardTaskDialog) {
+      dashboardTaskDialog.close();
+    }
+  });
+
+  updateDashboardProgress();
+  renderDashboardTasks();
+}
+
+if (technologyTabs.length) {
+  const technologyPanel = document.getElementById("technology-panel");
+  const technologyTitle = document.getElementById("technology-title");
+  const technologyKicker = document.getElementById("technology-kicker");
+  const technologyDescription = document.getElementById("technology-description");
+  const technologyExtra = document.getElementById("technology-extra");
+  const technologyLink = document.getElementById("technology-link");
+  const technologyMark = document.getElementById("technology-mark");
+
+  if (
+    technologyPanel &&
+    technologyTitle &&
+    technologyKicker &&
+    technologyDescription &&
+    technologyExtra &&
+    technologyLink &&
+    technologyMark
+  ) {
+    function showTechnology(technologyKey) {
+      const technology = technologyDetails[technologyKey];
+      if (!technology) {
+        return;
+      }
+
+      technologyTitle.textContent = technology.title;
+      technologyKicker.textContent = technology.kicker;
+      technologyDescription.textContent = technology.description;
+      technologyExtra.textContent = technology.extra;
+      technologyLink.href = technology.link;
+      technologyMark.textContent = technology.mark;
+      technologyPanel.setAttribute(
+        "aria-labelledby",
+        `technology-tab-${technologyKey}`,
+      );
+      technologyTabs.forEach((tab) => {
+        const isSelected = tab.dataset.technology === technologyKey;
+        tab.classList.toggle("is-active", isSelected);
+        tab.setAttribute("aria-selected", String(isSelected));
+        tab.tabIndex = isSelected ? 0 : -1;
+      });
+    }
+
+    technologyTabs.forEach((tab, index) => {
+      tab.addEventListener("click", () => {
+        showTechnology(tab.dataset.technology);
+      });
+      tab.addEventListener("keydown", (event) => {
+        if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") {
+          return;
+        }
+        event.preventDefault();
+        const direction = event.key === "ArrowRight" ? 1 : -1;
+        const nextIndex = (index + direction + technologyTabs.length) % technologyTabs.length;
+        technologyTabs[nextIndex].focus();
+        technologyTabs[nextIndex].click();
+      });
+    });
+
+    showTechnology("nextjs");
+  }
+}
+
+// ============================================
 // "Find Your Fit" Interactive Recommendation Tool
 // ============================================
 const quizButtons = document.querySelectorAll(".quiz-option-btn");
