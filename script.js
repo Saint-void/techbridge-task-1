@@ -497,121 +497,155 @@ if (filterTabs.length && programSections.length) {
 // ============================================
 // Interactive Intern Dashboard (TASK 6)
 // ============================================
-const dashboardTasks = [
+const initialDashboardTasks = [
   {
     number: 1,
     day: 1,
     title: "Build the TechBridge Homepage",
-    description: "Create the first version of the TechBridge website using HTML and CSS.",
+    description: "Create the foundational version of the TechBridge website with responsive HTML5 and modern CSS3.",
     status: "completed",
-    objective: "Create a welcoming homepage that introduces TechBridge and guides visitors to the information they need.",
-    deliverable: "A responsive homepage with clear sections, navigation, and a call to action.",
+    objective: "Establish brand identity, navigation, value proposition, and call to action for prospective interns.",
+    deliverable: "A fully responsive homepage with structured sections, semantic markup, and visual consistency.",
+    tags: ["HTML5", "CSS3", "Responsive"],
   },
   {
     number: 2,
     day: 4,
     title: "Build the TechBridge Programs Experience",
-    description: "Create a Programs experience presenting TechBridge's available learning programs.",
+    description: "Create a dedicated Programs experience presenting Data Analytics and Web Development tracks.",
     status: "completed",
-    objective: "Help visitors understand the available learning tracks and choose a program that interests them.",
-    deliverable: "A Programs page that presents Data Analytics and Web Development clearly.",
+    objective: "Help visitors clearly distinguish between working with data insights versus building websites.",
+    deliverable: "A dedicated Programs page featuring curriculum breakdowns, differentiation cards, and an interactive fit-finder.",
+    tags: ["Curriculum", "UX Design", "Flexbox/Grid"],
   },
   {
     number: 3,
     day: 8,
     title: "Build the Internship Tasks Experience",
-    description: "Create an interface that presents the TechBridge internship tasks and helps users understand the internship journey.",
-    status: "in-progress",
-    objective: "Show prospective interns the milestones and practical work they can expect during the internship.",
-    deliverable: "A clear task experience with task descriptions, a visible schedule, and a consistent design.",
+    description: "Create an interface presenting all internship milestones and day-by-day practical learning expectations.",
+    status: "completed",
+    objective: "Demonstrate the structured 30-day progression and hands-on deliverables interns complete.",
+    deliverable: "A comprehensive task roadmap interface with day markers, difficulty tags, and clear descriptions.",
+    tags: ["Information Architecture", "Roadmap", "CSS"],
   },
   {
     number: 4,
     day: 11,
     title: "Build an Interactive Internship Roadmap",
-    description: "Use JavaScript to allow visitors to switch between the Data Analytics and Web Development internship tracks.",
-    status: "not-started",
-    objective: "Let visitors explore either internship track without reloading the page.",
-    deliverable: "An interactive roadmap that displays all eight tasks for the selected track.",
+    description: "Use JavaScript to allow visitors to dynamically toggle between Data Analytics and Web Development roadmaps.",
+    status: "completed",
+    objective: "Enable instant client-side switching of roadmap content without page reloads using DOM manipulation.",
+    deliverable: "An interactive dual-track roadmap powered by JavaScript arrays, event listeners, and animated state changes.",
+    tags: ["JavaScript", "DOM Manipulation", "Event Listeners"],
   },
   {
     number: 5,
     day: 15,
-    title: "Build the Intern Registration Experience",
-    description: "Create a professional registration and onboarding interface for TechBridge interns.",
-    status: "not-started",
-    objective: "Design a welcoming and straightforward registration flow for prospective interns.",
-    deliverable: "A responsive registration experience with clear form labels and onboarding information.",
+    title: "Build the TechBridge Challenge Hub",
+    description: "Create an interactive Challenge Hub where learners explore and filter practical coding and analytics projects.",
+    status: "completed",
+    objective: "Provide interns with real-world practice briefs categorized by track, difficulty level, and deliverable.",
+    deliverable: "A responsive Challenge Hub with multi-criteria filtering, modal project briefs, and live counter updates.",
+    tags: ["Filtering", "Dialog Modals", "State Management"],
   },
   {
     number: 6,
     day: 19,
-    title: "Build the Task Submission System",
-    description: "Create an interface through which interns can prepare and submit their task work.",
-    status: "not-started",
-    objective: "Make it easy for interns to understand submission requirements and prepare their work for review.",
-    deliverable: "A task submission interface with clear instructions, a submission form, and status feedback.",
+    title: "Build the Interactive Intern Dashboard",
+    description: "Develop a centralized intern dashboard to track progress, complete milestones, and explore modern web stacks.",
+    status: "in-progress",
+    objective: "Create a personalized platform experience with live progress calculations, task status toggling, and framework exploration.",
+    deliverable: "An interactive dashboard with dynamic task cards, progress bar calculation, LocalStorage persistence, and a technology explorer.",
+    tags: ["Dashboard", "Calculations", "LocalStorage"],
   },
   {
     number: 7,
     day: 22,
-    title: "Build the Intern Dashboard",
-    description: "Create a dashboard where an intern can view their profile, progress, tasks and submissions.",
+    title: "Build the Task Submission System",
+    description: "Create a seamless submission flow where interns can submit GitHub repositories, live demo links, and project notes.",
     status: "not-started",
-    objective: "Bring an intern's key information and progress together in a useful personal workspace.",
-    deliverable: "A dashboard with profile details, progress indicators, tasks, and submission status.",
+    objective: "Streamline code review and project verification with structured validation and feedback states.",
+    deliverable: "A robust task submission form with input validation, file/URL verification, and submission receipt feedback.",
+    tags: ["Forms", "Validation", "User Input"],
   },
   {
     number: 8,
     day: 26,
-    title: "Build the Complete TechBridge Internship Platform",
-    description: "Combine the different components created during the internship into a complete TechBridge platform.",
+    title: "Build the Complete TechBridge Platform",
+    description: "Integrate all pages, components, and tools into a cohesive, production-ready web platform for graduation.",
     status: "not-started",
-    objective: "Bring the internship experiences together into a cohesive, accessible platform.",
-    deliverable: "A responsive TechBridge platform that connects the homepage, programs, roadmap, registration, and intern tools.",
+    objective: "Unify the entire platform experience, verify performance, cross-browser compatibility, and accessibility standards.",
+    deliverable: "An end-to-end, polished web platform connecting homepage, programs, roadmap, challenges, dashboard, and graduation review.",
+    tags: ["Full Integration", "Accessibility", "Performance"],
   },
 ];
+
+let dashboardTasks = JSON.parse(JSON.stringify(initialDashboardTasks));
 
 const technologyDetails = {
   nextjs: {
     title: "Next.js",
-    kicker: "REACT FRAMEWORK",
+    kicker: "FULL-STACK REACT FRAMEWORK",
     mark: "N.",
     description:
-      "Next.js is a React framework for building full-stack web applications. It adds features such as file-based routing, server rendering, and server-side capabilities.",
+      "Next.js is a premier React framework created by Vercel for building high-performance, full-stack web applications. It extends React with built-in architectural features that eliminate boilerplate.",
     extra:
-      "Teams use it for production websites and applications that benefit from a structured React setup and flexible rendering options.",
+      "Commonly used for production websites, e-commerce stores, and SaaS applications. Key strengths include Server-Side Rendering (SSR) for dynamic pages, Static Site Generation (SSG) for blistering fast delivery, automatic image/font optimization, file-based routing via the App Router, and Server Actions for database mutations without dedicated API endpoints.",
     link: "https://nextjs.org/learn",
+    tags: ["React", "SSR & SSG", "Full-Stack", "App Router"],
+    backendTechs: null,
   },
   vue: {
     title: "Vue.js",
-    kicker: "JAVASCRIPT FRAMEWORK",
+    kicker: "PROGRESSIVE JAVASCRIPT FRAMEWORK",
     mark: "V.",
     description:
-      "Vue is a JavaScript framework for building user interfaces. Its component-based approach helps developers build pages and applications from reusable pieces.",
+      "Vue.js is an approachable, versatile, and performant progressive JavaScript framework for crafting modern user interfaces. Created by Evan You, it features an intuitive template syntax and reactive state system.",
     extra:
-      "Vue can enhance one part of a page or power a complete single-page application.",
+      "Developers use Vue for everything from lightweight interactive page widgets to enterprise Single Page Applications (SPAs). Its standout features include clean two-way data binding, single-file components (.vue files combining HTML, CSS, and JS), a gentle learning curve, and an outstanding ecosystem including Vite, Vue Router, and Pinia for centralized state management.",
     link: "https://vuejs.org/guide/introduction.html",
+    tags: ["Single-File Components", "Reactivity", "SPAs", "Vite & Pinia"],
+    backendTechs: null,
   },
   angular: {
     title: "Angular",
-    kicker: "WEB APPLICATION PLATFORM",
+    kicker: "ENTERPRISE WEB APPLICATION PLATFORM",
     mark: "A.",
     description:
-      "Angular is a TypeScript-based platform for building web applications. It provides an integrated set of tools and patterns for components, routing, and forms.",
+      "Angular is a comprehensive, TypeScript-based platform and framework developed and maintained by Google. It is engineered from the ground up for building robust, scalable web applications.",
     extra:
-      "It is often used for larger applications where teams want a consistent, full-featured framework.",
+      "Widely chosen by enterprise organizations, financial institutions, and large engineering teams where strict architecture and long-term maintainability are crucial. It provides out-of-the-box dependency injection, reactive form validation, powerful CLI tooling, modular architecture, and native RxJS integration for asynchronous data streams.",
     link: "https://angular.dev/overview",
+    tags: ["TypeScript", "Dependency Injection", "Enterprise", "RxJS"],
+    backendTechs: null,
   },
   backend: {
-    title: "Backend development",
-    kicker: "BEHIND THE INTERFACE",
+    title: "Backend Development",
+    kicker: "THE ENGINE BEHIND THE INTERFACE",
     mark: "{ }",
     description:
-      "Backend development builds the server-side logic and services a website depends on. It handles tasks such as data access, business rules, authentication, and APIs that connect to the frontend.",
+      "Backend development refers to the server-side software engineering that powers a web application behind the scenes. While the frontend handles visual layout and user interactions in the browser, the backend manages business logic, data persistence, user authentication, security, and third-party integrations.",
     extra:
-      "Common choices include Node.js with Express, Django or Flask with Python, and .NET. The best fit depends on the product, team, and existing systems.",
+      "How it connects with the frontend: The frontend (client) and backend communicate over HTTP/HTTPS protocols using RESTful APIs, GraphQL, or real-time WebSockets. When an intern clicks a button or submits a form, the browser sends an asynchronous request (often formatted as JSON). The backend verifies credentials, executes business logic, queries a database (such as PostgreSQL, MySQL, or MongoDB), and returns an appropriate JSON response or status code for the frontend to render.",
     link: "https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Server-side",
+    tags: ["Server Logic", "REST & GraphQL", "Databases", "Authentication"],
+    backendTechs: [
+      {
+        name: "Node.js & Express.js",
+        category: "JavaScript / TypeScript",
+        desc: "A fast asynchronous runtime built on Chrome's V8 engine combined with a minimalist web framework. Allows full-stack developers to use JavaScript across the entire stack to create lightweight REST APIs and real-time microservices.",
+      },
+      {
+        name: "Django & Flask (Python)",
+        category: "Python Ecosystem",
+        desc: "Django provides a robust 'batteries-included' framework with built-in ORM, admin dashboard, and authentication, ideal for data-heavy apps and AI integrations. Flask offers a lightweight, flexible micro-framework for custom architectures.",
+      },
+      {
+        name: "ASP.NET Core (.NET) & Laravel",
+        category: "Enterprise C# / PHP",
+        desc: "ASP.NET Core is a blazing-fast, cross-platform enterprise framework for cloud-native backends and microservices. Laravel offers an elegant PHP framework renowned for developer ergonomics, Eloquent ORM, and rapid prototyping.",
+      },
+    ],
   },
 };
 
@@ -623,9 +657,17 @@ const dashboardProgressFill = document.getElementById("dashboard-progress-fill")
 const dashboardRemainingCount = document.getElementById("remaining-count");
 const dashboardNextTaskLabel = document.getElementById("next-task-label");
 const dashboardTaskFilters = document.querySelectorAll("[data-task-filter]");
+const dashboardTaskSearch = document.getElementById("task-search-input");
+const dashboardClearSearch = document.getElementById("clear-search-btn");
 const dashboardNoTasks = document.getElementById("dashboard-no-tasks");
 const dashboardTaskDialog = document.getElementById("dashboard-task-dialog");
 const dashboardTaskDetails = document.getElementById("dashboard-task-details");
+const dashboardCelebration = document.getElementById("dashboard-celebration");
+const dashboardToast = document.getElementById("dashboard-toast");
+const welcomeInternStatus = document.getElementById("welcome-intern-status");
+const daysCountdownChip = document.getElementById("days-countdown-chip");
+const resumeTaskBtn = document.getElementById("resume-task-btn");
+const resetProgressBtn = document.getElementById("reset-progress-btn");
 const technologyTabs = document.querySelectorAll("[data-technology]");
 
 if (
@@ -640,21 +682,52 @@ if (
   dashboardTaskDialog instanceof HTMLDialogElement &&
   dashboardTaskDetails
 ) {
-  const taskStorageKey = "techbridge-dashboard-task-status-v1";
+  const taskStorageKey = "techbridge-dashboard-task-status-v2";
   const validTaskStatuses = ["completed", "in-progress", "not-started"];
   let activeTaskFilter = "all";
+  let activeSearchTerm = "";
+  let toastTimeout = null;
 
-  try {
-    const savedStatuses = JSON.parse(localStorage.getItem(taskStorageKey) || "null");
-    if (Array.isArray(savedStatuses)) {
-      savedStatuses.forEach((status, index) => {
-        if (dashboardTasks[index] && validTaskStatuses.includes(status)) {
-          dashboardTasks[index].status = status;
-        }
-      });
+  function loadSavedStatuses() {
+    try {
+      const savedStatuses = JSON.parse(localStorage.getItem(taskStorageKey) || "null");
+      if (Array.isArray(savedStatuses) && savedStatuses.length === dashboardTasks.length) {
+        savedStatuses.forEach((status, index) => {
+          if (dashboardTasks[index] && validTaskStatuses.includes(status)) {
+            dashboardTasks[index].status = status;
+          }
+        });
+      }
+    } catch (error) {
+      console.warn("Could not restore saved internship task progress.", error);
     }
-  } catch (error) {
-    console.warn("Could not restore saved internship task progress.", error);
+  }
+
+  function saveTaskStatuses() {
+    try {
+      localStorage.setItem(
+        taskStorageKey,
+        JSON.stringify(dashboardTasks.map((task) => task.status)),
+      );
+    } catch (error) {
+      console.warn("Could not persist internship task progress.", error);
+    }
+  }
+
+  function showToast(message) {
+    if (!dashboardToast) return;
+    if (toastTimeout) {
+      clearTimeout(toastTimeout);
+    }
+    dashboardToast.textContent = message;
+    dashboardToast.hidden = false;
+    dashboardToast.classList.add("is-visible");
+    toastTimeout = setTimeout(() => {
+      dashboardToast.classList.remove("is-visible");
+      setTimeout(() => {
+        dashboardToast.hidden = true;
+      }, 250);
+    }, 3200);
   }
 
   function getTaskStatusLabel(status) {
@@ -666,52 +739,118 @@ if (
   }
 
   function updateDashboardProgress() {
-    const completedCount = dashboardTasks.filter(
-      (task) => task.status === "completed",
-    ).length;
-    const remainingCount = dashboardTasks.length - completedCount;
-    const progressPercent = (completedCount / dashboardTasks.length) * 100;
-    const currentTask = dashboardTasks.find((task) => task.status === "in-progress");
+    const totalCount = dashboardTasks.length;
+    const completedCount = dashboardTasks.filter((t) => t.status === "completed").length;
+    const inProgressCount = dashboardTasks.filter((t) => t.status === "in-progress").length;
+    const notStartedCount = dashboardTasks.filter((t) => t.status === "not-started").length;
+    const remainingCount = totalCount - completedCount;
+    const progressPercent = (completedCount / totalCount) * 100;
+    const formattedPercent = Number.isInteger(progressPercent)
+      ? `${progressPercent}%`
+      : `${progressPercent.toFixed(1)}%`;
 
-    dashboardProgressFraction.innerHTML = `${completedCount} <span>/ ${dashboardTasks.length}</span>`;
-    dashboardProgressPercent.textContent = `${
-      Number.isInteger(progressPercent) ? progressPercent : progressPercent.toFixed(1)
-    }%`;
+    const currentTask = dashboardTasks.find((t) => t.status === "in-progress");
+    const nextTask = dashboardTasks.find((t) => t.status === "not-started");
+
+    dashboardProgressFraction.innerHTML = `${completedCount} <span>/ ${totalCount}</span>`;
+    dashboardProgressPercent.textContent = formattedPercent;
     dashboardProgressTrack.setAttribute("aria-valuenow", String(completedCount));
-    dashboardProgressTrack.setAttribute("aria-valuemax", String(dashboardTasks.length));
+    dashboardProgressTrack.setAttribute("aria-valuemax", String(totalCount));
     dashboardProgressTrack.setAttribute(
       "aria-label",
-      `${completedCount} of ${dashboardTasks.length} internship tasks completed`,
+      `${completedCount} of ${totalCount} internship tasks completed (${formattedPercent})`,
     );
     dashboardProgressFill.style.width = `${progressPercent}%`;
-    dashboardRemainingCount.textContent =
-      `${remainingCount} ${remainingCount === 1 ? "task" : "tasks"} remaining`;
-    dashboardNextTaskLabel.textContent = currentTask
-      ? `Next up: Task ${currentTask.number}`
-      : "All tasks completed";
 
-    document.getElementById("completed-filter-count").textContent = String(completedCount);
-    document.getElementById("in-progress-filter-count").textContent = String(
-      dashboardTasks.filter((task) => task.status === "in-progress").length,
-    );
-    document.getElementById("not-started-filter-count").textContent = String(
-      dashboardTasks.filter((task) => task.status === "not-started").length,
-    );
+    dashboardRemainingCount.textContent = `${remainingCount} ${
+      remainingCount === 1 ? "task" : "tasks"
+    } remaining`;
+
+    if (currentTask) {
+      dashboardNextTaskLabel.textContent = `Current task: Task ${currentTask.number}`;
+      if (resumeTaskBtn) {
+        resumeTaskBtn.innerHTML = `Resume Task ${currentTask.number} <span aria-hidden="true">→</span>`;
+        resumeTaskBtn.disabled = false;
+      }
+    } else if (nextTask) {
+      dashboardNextTaskLabel.textContent = `Next up: Task ${nextTask.number}`;
+      if (resumeTaskBtn) {
+        resumeTaskBtn.innerHTML = `Start Task ${nextTask.number} <span aria-hidden="true">→</span>`;
+        resumeTaskBtn.disabled = false;
+      }
+    } else {
+      dashboardNextTaskLabel.textContent = "All 8 tasks completed!";
+      if (resumeTaskBtn) {
+        resumeTaskBtn.innerHTML = `All Tasks Completed <span aria-hidden="true">✓</span>`;
+        resumeTaskBtn.disabled = true;
+      }
+    }
+
+    const completedFilterBadge = document.getElementById("completed-filter-count");
+    const inProgressFilterBadge = document.getElementById("in-progress-filter-count");
+    const notStartedFilterBadge = document.getElementById("not-started-filter-count");
+
+    if (completedFilterBadge) completedFilterBadge.textContent = String(completedCount);
+    if (inProgressFilterBadge) inProgressFilterBadge.textContent = String(inProgressCount);
+    if (notStartedFilterBadge) notStartedFilterBadge.textContent = String(notStartedCount);
+
+    if (dashboardCelebration) {
+      dashboardCelebration.hidden = completedCount !== totalCount;
+    }
+
+    if (welcomeInternStatus) {
+      if (completedCount === totalCount) {
+        welcomeInternStatus.innerHTML = '<i aria-hidden="true"></i> Completed';
+        welcomeInternStatus.className = "intern-status status-completed";
+      } else {
+        welcomeInternStatus.innerHTML = '<i aria-hidden="true"></i> In Progress';
+        welcomeInternStatus.className = "intern-status";
+      }
+    }
+
+    if (daysCountdownChip) {
+      if (completedCount === totalCount) {
+        daysCountdownChip.textContent = "All Milestones Completed · Graduation Ready";
+      } else {
+        const estimatedDay = currentTask ? currentTask.day : 19;
+        const daysRemaining = Math.max(0, 30 - estimatedDay);
+        daysCountdownChip.textContent = `Day ${estimatedDay} of 30 · ${daysRemaining} Days Remaining`;
+      }
+    }
   }
 
   function renderDashboardTasks() {
-    const visibleTasks = dashboardTasks.filter(
-      (task) => activeTaskFilter === "all" || task.status === activeTaskFilter,
-    );
+    const term = activeSearchTerm.trim().toLowerCase();
+
+    const visibleTasks = dashboardTasks.filter((task) => {
+      const matchesFilter =
+        activeTaskFilter === "all" || task.status === activeTaskFilter;
+
+      const matchesSearch =
+        !term ||
+        task.title.toLowerCase().includes(term) ||
+        task.description.toLowerCase().includes(term) ||
+        String(task.number).includes(term) ||
+        (task.tags && task.tags.some((tag) => tag.toLowerCase().includes(term)));
+
+      return matchesFilter && matchesSearch;
+    });
 
     dashboardTaskGrid.innerHTML = visibleTasks
       .map((task) => {
         const statusLabel = getTaskStatusLabel(task.status);
         const actionLabel =
           task.status === "completed" ? "Mark as In Progress" : "Mark as Completed";
-        const actionValue = task.status === "completed" ? "in-progress" : "completed";
+        const actionNextStatus =
+          task.status === "completed" ? "in-progress" : "completed";
+        const tagsHtml = task.tags
+          ? `<div class="dashboard-task-tags">
+              ${task.tags.map((t) => `<span class="task-tag-pill">${t}</span>`).join("")}
+            </div>`
+          : "";
+
         return `
-          <article class="dashboard-task-card status-${task.status}">
+          <article class="dashboard-task-card status-${task.status}" id="task-card-${task.number}">
             <div class="dashboard-task-card-top">
               <span class="dashboard-task-number">TASK ${String(task.number).padStart(2, "0")}</span>
               <span class="dashboard-task-status"><i aria-hidden="true"></i>${statusLabel}</span>
@@ -719,9 +858,19 @@ if (
             <p class="dashboard-task-day">DAY ${String(task.day).padStart(2, "0")}</p>
             <h3>${task.title}</h3>
             <p class="dashboard-task-description">${task.description}</p>
+            ${tagsHtml}
             <div class="dashboard-task-card-actions">
-              <button type="button" class="dashboard-view-task" data-view-task="${task.number}">View Task <span aria-hidden="true">↗</span></button>
-              <button type="button" class="dashboard-complete-task" data-set-task-status="${task.number}" data-next-status="${actionValue}">${actionLabel}</button>
+              <button type="button" class="dashboard-view-task" data-view-task="${task.number}">
+                View Task <span aria-hidden="true">↗</span>
+              </button>
+              <button
+                type="button"
+                class="dashboard-complete-task"
+                data-set-task-status="${task.number}"
+                data-next-status="${actionNextStatus}"
+              >
+                ${actionLabel}
+              </button>
             </div>
           </article>
         `;
@@ -731,40 +880,50 @@ if (
     dashboardNoTasks.hidden = visibleTasks.length > 0;
   }
 
-  function saveTaskStatuses() {
-    localStorage.setItem(
-      taskStorageKey,
-      JSON.stringify(dashboardTasks.map((task) => task.status)),
-    );
-  }
-
   function updateTaskStatus(taskNumber, nextStatus) {
     const task = dashboardTasks.find((item) => item.number === taskNumber);
     if (!task || !validTaskStatuses.includes(nextStatus)) {
       return;
     }
 
+    task.status = nextStatus;
+
     if (nextStatus === "completed") {
-      task.status = "completed";
       const nextTask = dashboardTasks.find((item) => item.status === "not-started");
       if (nextTask) {
         nextTask.status = "in-progress";
       }
-    } else {
+      showToast(`✓ Task ${taskNumber} marked as Completed!`);
+    } else if (nextStatus === "in-progress") {
       dashboardTasks.forEach((item) => {
-        if (item.status === "in-progress") {
+        if (item.number !== taskNumber && item.status === "in-progress") {
           item.status = "not-started";
         }
       });
-      task.status = "in-progress";
+      showToast(`Task ${taskNumber} marked as In Progress.`);
     }
 
     saveTaskStatuses();
     updateDashboardProgress();
     renderDashboardTasks();
+
+    if (dashboardTaskDialog.open) {
+      showDashboardTask(task);
+    }
   }
 
   function showDashboardTask(task) {
+    const statusLabel = getTaskStatusLabel(task.status);
+    const actionLabel =
+      task.status === "completed" ? "Mark as In Progress" : "Mark as Completed";
+    const actionNextStatus =
+      task.status === "completed" ? "in-progress" : "completed";
+    const tagsHtml = task.tags
+      ? `<div class="dashboard-dialog-tags">
+          ${task.tags.map((t) => `<span class="task-tag-pill">${t}</span>`).join("")}
+        </div>`
+      : "";
+
     dashboardTaskDetails.innerHTML = `
       <p class="eyebrow section-eyebrow">Internship task <span aria-hidden="true">/</span> Day ${task.day}</p>
       <div class="dashboard-dialog-heading">
@@ -772,21 +931,51 @@ if (
           <span class="dashboard-task-number">TASK ${String(task.number).padStart(2, "0")}</span>
           <h2 id="dashboard-dialog-title">${task.title}</h2>
         </div>
-        <span class="dashboard-task-status status-label-${task.status}"><i aria-hidden="true"></i>${getTaskStatusLabel(task.status)}</span>
+        <span class="dashboard-task-status status-label-${task.status}"><i aria-hidden="true"></i>${statusLabel}</span>
       </div>
       <p class="dashboard-dialog-description">${task.description}</p>
+      ${tagsHtml}
       <div class="challenge-dialog-deliverable">
-        <span>OBJECTIVE</span>
+        <span>LEARNING OBJECTIVE</span>
         <p>${task.objective}</p>
       </div>
       <div class="challenge-dialog-deliverable dashboard-dialog-outcome">
-        <span>EXPECTED OUTCOME</span>
+        <span>EXPECTED DELIVERABLE</span>
         <p>${task.deliverable}</p>
       </div>
+      <div class="dashboard-dialog-actions">
+        <button
+          type="button"
+          class="button button-small button-primary"
+          data-dialog-set-status="${task.number}"
+          data-next-status="${actionNextStatus}"
+        >
+          ${actionLabel} <span aria-hidden="true">✓</span>
+        </button>
+        <button type="button" class="button button-small button-light" id="close-dialog-btn">
+          Close Details
+        </button>
+      </div>
     `;
+
+    const dialogStatusBtn = dashboardTaskDetails.querySelector("[data-dialog-set-status]");
+    if (dialogStatusBtn) {
+      dialogStatusBtn.addEventListener("click", () => {
+        updateTaskStatus(task.number, actionNextStatus);
+      });
+    }
+
+    const closeDialogBtn = dashboardTaskDetails.querySelector("#close-dialog-btn");
+    if (closeDialogBtn) {
+      closeDialogBtn.addEventListener("click", () => {
+        dashboardTaskDialog.close();
+      });
+    }
+
     dashboardTaskDialog.showModal();
   }
 
+  // Filter Buttons
   dashboardTaskFilters.forEach((button) => {
     button.addEventListener("click", () => {
       activeTaskFilter = button.dataset.taskFilter || "all";
@@ -799,6 +988,28 @@ if (
     });
   });
 
+  // Search Input
+  if (dashboardTaskSearch) {
+    dashboardTaskSearch.addEventListener("input", (e) => {
+      activeSearchTerm = e.target.value;
+      if (dashboardClearSearch) {
+        dashboardClearSearch.hidden = !activeSearchTerm;
+      }
+      renderDashboardTasks();
+    });
+  }
+
+  if (dashboardClearSearch && dashboardTaskSearch) {
+    dashboardClearSearch.addEventListener("click", () => {
+      dashboardTaskSearch.value = "";
+      activeSearchTerm = "";
+      dashboardClearSearch.hidden = true;
+      dashboardTaskSearch.focus();
+      renderDashboardTasks();
+    });
+  }
+
+  // Task Grid Event Delegation
   dashboardTaskGrid.addEventListener("click", (event) => {
     const target = event.target;
     if (!(target instanceof Element)) {
@@ -815,24 +1026,88 @@ if (
     }
 
     const viewButton = target.closest("[data-view-task]");
-    const task = dashboardTasks.find(
-      (item) => item.number === Number(viewButton?.getAttribute("data-view-task")),
-    );
-    if (task) {
-      showDashboardTask(task);
+    if (viewButton) {
+      const task = dashboardTasks.find(
+        (item) => item.number === Number(viewButton.getAttribute("data-view-task")),
+      );
+      if (task) {
+        showDashboardTask(task);
+      }
     }
   });
 
+  // Modal Backdrop Click
   dashboardTaskDialog.addEventListener("click", (event) => {
     if (event.target === dashboardTaskDialog) {
       dashboardTaskDialog.close();
     }
   });
 
+  // Resume Current Task Button
+  if (resumeTaskBtn) {
+    resumeTaskBtn.addEventListener("click", () => {
+      const currentTask =
+        dashboardTasks.find((t) => t.status === "in-progress") ||
+        dashboardTasks.find((t) => t.status === "not-started") ||
+        dashboardTasks[0];
+
+      if (currentTask) {
+        // Ensure filter shows it
+        if (activeTaskFilter !== "all" && activeTaskFilter !== currentTask.status) {
+          activeTaskFilter = "all";
+          dashboardTaskFilters.forEach((btn) => {
+            const isAll = btn.dataset.taskFilter === "all";
+            btn.classList.toggle("is-active", isAll);
+            btn.setAttribute("aria-pressed", String(isAll));
+          });
+          renderDashboardTasks();
+        }
+
+        const taskElement = document.getElementById(`task-card-${currentTask.number}`);
+        if (taskElement) {
+          taskElement.scrollIntoView({ behavior: "smooth", block: "center" });
+          taskElement.classList.add("is-highlighted");
+          setTimeout(() => {
+            taskElement.classList.remove("is-highlighted");
+          }, 1800);
+        } else {
+          showDashboardTask(currentTask);
+        }
+      }
+    });
+  }
+
+  // Reset Demo Progress Button
+  if (resetProgressBtn) {
+    resetProgressBtn.addEventListener("click", () => {
+      if (confirm("Reset demo task progress back to original state?")) {
+        localStorage.removeItem(taskStorageKey);
+        dashboardTasks = JSON.parse(JSON.stringify(initialDashboardTasks));
+        activeTaskFilter = "all";
+        activeSearchTerm = "";
+        if (dashboardTaskSearch) dashboardTaskSearch.value = "";
+        if (dashboardClearSearch) dashboardClearSearch.hidden = true;
+        dashboardTaskFilters.forEach((btn) => {
+          const isAll = btn.dataset.taskFilter === "all";
+          btn.classList.toggle("is-active", isAll);
+          btn.setAttribute("aria-pressed", String(isAll));
+        });
+        updateDashboardProgress();
+        renderDashboardTasks();
+        showToast("Demo progress reset to default state.");
+      }
+    });
+  }
+
+  // Initialize
+  loadSavedStatuses();
   updateDashboardProgress();
   renderDashboardTasks();
 }
 
+// ============================================
+// Modern Web Technologies Interactive Explorer
+// ============================================
 if (technologyTabs.length) {
   const technologyPanel = document.getElementById("technology-panel");
   const technologyTitle = document.getElementById("technology-title");
@@ -841,6 +1116,8 @@ if (technologyTabs.length) {
   const technologyExtra = document.getElementById("technology-extra");
   const technologyLink = document.getElementById("technology-link");
   const technologyMark = document.getElementById("technology-mark");
+  const technologyTags = document.getElementById("technology-tags");
+  const technologyTechsGrid = document.getElementById("technology-techs-grid");
 
   if (
     technologyPanel &&
@@ -867,6 +1144,41 @@ if (technologyTabs.length) {
         "aria-labelledby",
         `technology-tab-${technologyKey}`,
       );
+
+      // Render tags
+      if (technologyTags) {
+        if (technology.tags && technology.tags.length) {
+          technologyTags.innerHTML = technology.tags
+            .map((tag) => `<span class="tech-tag-pill">${tag}</span>`)
+            .join("");
+          technologyTags.hidden = false;
+        } else {
+          technologyTags.innerHTML = "";
+          technologyTags.hidden = true;
+        }
+      }
+
+      // Render backend technology spotlights if available
+      if (technologyTechsGrid) {
+        if (technology.backendTechs && technology.backendTechs.length) {
+          technologyTechsGrid.innerHTML = technology.backendTechs
+            .map(
+              (item) => `
+                <div class="backend-tech-card">
+                  <span class="backend-category">${item.category}</span>
+                  <h4>${item.name}</h4>
+                  <p>${item.desc}</p>
+                </div>
+              `,
+            )
+            .join("");
+          technologyTechsGrid.hidden = false;
+        } else {
+          technologyTechsGrid.innerHTML = "";
+          technologyTechsGrid.hidden = true;
+        }
+      }
+
       technologyTabs.forEach((tab) => {
         const isSelected = tab.dataset.technology === technologyKey;
         tab.classList.toggle("is-active", isSelected);
