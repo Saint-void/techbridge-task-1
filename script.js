@@ -972,7 +972,9 @@ if (
       });
     }
 
-    dashboardTaskDialog.showModal();
+    if (!dashboardTaskDialog.open) {
+      dashboardTaskDialog.showModal();
+    }
   }
 
   // Filter Buttons
