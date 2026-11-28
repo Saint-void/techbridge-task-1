@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "number": 1,
+    "day": 1,
+    "title": "Build the TechBridge Homepage",
+    "description": "Create the foundational version of the TechBridge website with responsive HTML5 and modern CSS3.",
+    "status": "completed",
+    "objective": "Establish brand identity, navigation, value proposition, and call to action for prospective interns.",
+    "deliverable": "A fully responsive homepage with structured sections, semantic markup, and visual consistency.",
+    "tags": [
+      "HTML5",
+      "CSS3",
+      "Responsive"
+    ]
+  },
+  {
+    "id": 2,
+    "number": 2,
+    "day": 4,
+    "title": "Build the TechBridge Programs Experience",
+    "description": "Create a dedicated Programs experience presenting Data Analytics and Web Development tracks.",
+    "status": "completed",
+    "objective": "Help visitors clearly distinguish between working with data insights versus building websites.",
+    "deliverable": "A dedicated Programs page featuring curriculum breakdowns, differentiation cards, and an interactive fit-finder.",
+    "tags": [
+      "Curriculum",
+      "UX Design",
+      "Flexbox/Grid"
+    ]
+  },
+  {
+    "id": 3,
+    "number": 3,
+    "day": 8,
+    "title": "Build the Internship Tasks Experience",
+    "description": "Create an interface presenting all internship milestones and day-by-day practical learning expectations.",
+    "status": "completed",
+    "objective": "Demonstrate the structured 30-day progression and hands-on deliverables interns complete.",
+    "deliverable": "A comprehensive task roadmap interface with day markers, difficulty tags, and clear descriptions.",
+    "tags": [
+      "Information Architecture",
+      "Roadmap",
+      "CSS"
+    ]
+  },
+  {
+    "id": 4,
+    "number": 4,
+    "day": 11,
+    "title": "Build an Interactive Internship Roadmap",
+    "description": "Use JavaScript to allow visitors to dynamically toggle between Data Analytics and Web Development roadmaps.",
+    "status": "completed",
+    "objective": "Enable instant client-side switching of roadmap content without page reloads using DOM manipulation.",
+    "deliverable": "An interactive dual-track roadmap powered by JavaScript arrays, event listeners, and animated state changes.",
+    "tags": [
+      "JavaScript",
+      "DOM Manipulation",
+      "Event Listeners"
+    ]
+  },
+  {
+    "id": 5,
+    "number": 5,
+    "day": 15,
+    "title": "Build the TechBridge Challenge Hub",
+    "description": "Create an interactive Challenge Hub where learners explore and filter practical coding and analytics projects.",
+    "status": "completed",
+    "objective": "Provide interns with real-world practice briefs categorized by track, difficulty level, and deliverable.",
+    "deliverable": "A responsive Challenge Hub with multi-criteria filtering, modal project briefs, and live counter updates.",
+    "tags": [
+      "Filtering",
+      "Dialog Modals",
+      "State Management"
+    ]
+  },
+  {
+    "id": 6,
+    "number": 6,
+    "day": 19,
+    "title": "Build the Interactive Intern Dashboard",
+    "description": "Develop a centralized intern dashboard to track progress, complete milestones, and explore modern web stacks.",
+    "status": "completed",
+    "objective": "Create a personalized platform experience with live progress calculations, task status toggling, and framework exploration.",
+    "deliverable": "An interactive dashboard with API-backed task cards, progress calculations, filtering, and a technology explorer.",
+    "tags": [
+      "Dashboard",
+      "REST API",
+      "Fetch"
+    ]
+  },
+  {
+    "id": 7,
+    "number": 7,
+    "day": 22,
+    "title": "Build the Task Submission System",
+    "description": "Create a seamless submission flow where interns can submit GitHub repositories, live demo links, and project notes.",
+    "status": "completed",
+    "objective": "Streamline code review and project verification with structured validation and feedback states.",
+    "deliverable": "A robust task submission form with input validation, file/URL verification, and submission receipt feedback.",
+    "tags": [
+      "Forms",
+      "Validation",
+      "User Input"
+    ]
+  },
+  {
+    "id": 8,
+    "number": 8,
+    "day": 26,
+    "title": "Build the Complete TechBridge Platform",
+    "description": "Integrate all pages, components, and tools into a cohesive, production-ready web platform for graduation.",
+    "status": "completed",
+    "objective": "Unify the entire platform experience, verify performance, cross-browser compatibility, and accessibility standards.",
+    "deliverable": "An end-to-end, polished web platform connecting homepage, programs, roadmap, challenges, dashboard, and graduation review.",
+    "tags": [
+      "Full Integration",
+      "Accessibility",
+      "Performance"
+    ]
+  }
+]

@@ -669,6 +669,8 @@ const daysCountdownChip = document.getElementById("days-countdown-chip");
 const resumeTaskBtn = document.getElementById("resume-task-btn");
 const resetProgressBtn = document.getElementById("reset-progress-btn");
 const technologyTabs = document.querySelectorAll("[data-technology]");
+const apiStatus = document.getElementById("api-status");
+const API_BASE_URL = "http://localhost:3000";
 
 if (
   dashboardTaskGrid &&
@@ -682,36 +684,51 @@ if (
   dashboardTaskDialog instanceof HTMLDialogElement &&
   dashboardTaskDetails
 ) {
-  const taskStorageKey = "techbridge-dashboard-task-status-v2";
   const validTaskStatuses = ["completed", "in-progress", "not-started"];
   let activeTaskFilter = "all";
   let activeSearchTerm = "";
   let toastTimeout = null;
 
-  function loadSavedStatuses() {
+  function setApiStatus(connected) {
+    if (!apiStatus) return;
+    apiStatus.className = connected
+      ? "api-status api-status-connected"
+      : "api-status api-status-offline";
+    apiStatus.innerHTML = connected
+      ? '<i aria-hidden="true"></i><span>Backend: Connected</span>'
+      : '<i aria-hidden="true"></i><span>Backend: Offline</span>';
+  }
+
+  async function loadTasksFromApi() {
+    dashboardTaskGrid.innerHTML =
+      '<p class="dashboard-no-tasks" role="status">Loading tasks...</p>';
     try {
-      const savedStatuses = JSON.parse(localStorage.getItem(taskStorageKey) || "null");
-      if (Array.isArray(savedStatuses) && savedStatuses.length === dashboardTasks.length) {
-        savedStatuses.forEach((status, index) => {
-          if (dashboardTasks[index] && validTaskStatuses.includes(status)) {
-            dashboardTasks[index].status = status;
-          }
-        });
+      const response = await fetch(`${API_BASE_URL}/api/tasks`);
+      if (!response.ok) {
+        throw new Error(`API returned ${response.status}`);
       }
+      dashboardTasks = await response.json();
+      setApiStatus(true);
+      updateDashboardProgress();
+      renderDashboardTasks();
     } catch (error) {
-      console.warn("Could not restore saved internship task progress.", error);
+      console.error("Unable to load TechBridge tasks.", error);
+      setApiStatus(false);
+      dashboardTaskGrid.innerHTML = `
+        <div class="dashboard-no-tasks" role="alert">
+          <strong>Unable to load tasks.</strong>
+          <span>Please start the backend server and try again.</span>
+        </div>
+      `;
     }
   }
 
-  function saveTaskStatuses() {
-    try {
-      localStorage.setItem(
-        taskStorageKey,
-        JSON.stringify(dashboardTasks.map((task) => task.status)),
-      );
-    } catch (error) {
-      console.warn("Could not persist internship task progress.", error);
+  async function fetchTaskFromApi(taskNumber) {
+    const response = await fetch(`${API_BASE_URL}/api/tasks/${taskNumber}`);
+    if (!response.ok) {
+      throw new Error(`API returned ${response.status}`);
     }
+    return response.json();
   }
 
   function showToast(message) {
@@ -880,35 +897,46 @@ if (
     dashboardNoTasks.hidden = visibleTasks.length > 0;
   }
 
-  function updateTaskStatus(taskNumber, nextStatus) {
+  async function updateTaskStatus(taskNumber, nextStatus) {
     const task = dashboardTasks.find((item) => item.number === taskNumber);
     if (!task || !validTaskStatuses.includes(nextStatus)) {
       return;
     }
 
-    task.status = nextStatus;
-
-    if (nextStatus === "completed") {
-      const nextTask = dashboardTasks.find((item) => item.status === "not-started");
-      if (nextTask) {
-        nextTask.status = "in-progress";
-      }
-      showToast(`✓ Task ${taskNumber} marked as Completed!`);
-    } else if (nextStatus === "in-progress") {
-      dashboardTasks.forEach((item) => {
-        if (item.number !== taskNumber && item.status === "in-progress") {
-          item.status = "not-started";
-        }
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/tasks/${taskNumber}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: nextStatus }),
       });
-      showToast(`Task ${taskNumber} marked as In Progress.`);
-    }
+      if (!response.ok) {
+        throw new Error(`API returned ${response.status}`);
+      }
 
-    saveTaskStatuses();
-    updateDashboardProgress();
-    renderDashboardTasks();
+      const updatedTask = await response.json();
+      dashboardTasks = dashboardTasks.map((item) =>
+        item.number === taskNumber ? updatedTask : item,
+      );
+      setApiStatus(true);
 
-    if (dashboardTaskDialog.open) {
-      showDashboardTask(task);
+      if (nextStatus === "completed") {
+        showToast(`✓ Task ${taskNumber} marked as Completed!`);
+      } else if (nextStatus === "in-progress") {
+        showToast(`Task ${taskNumber} marked as In Progress.`);
+      } else {
+        showToast(`Task ${taskNumber} marked as Not Started.`);
+      }
+
+      updateDashboardProgress();
+      renderDashboardTasks();
+
+      if (dashboardTaskDialog.open) {
+        showDashboardTask(updatedTask);
+      }
+    } catch (error) {
+      console.error("Unable to update task status.", error);
+      setApiStatus(false);
+      showToast("Unable to update task. Check the backend connection.");
     }
   }
 
@@ -1029,12 +1057,17 @@ if (
 
     const viewButton = target.closest("[data-view-task]");
     if (viewButton) {
-      const task = dashboardTasks.find(
-        (item) => item.number === Number(viewButton.getAttribute("data-view-task")),
-      );
-      if (task) {
-        showDashboardTask(task);
-      }
+      const taskNumber = Number(viewButton.getAttribute("data-view-task"));
+      fetchTaskFromApi(taskNumber)
+        .then((task) => {
+          setApiStatus(true);
+          showDashboardTask(task);
+        })
+        .catch((error) => {
+          console.error("Unable to view task.", error);
+          setApiStatus(false);
+          showToast("Unable to load task details.");
+        });
     }
   });
 
@@ -1083,28 +1116,44 @@ if (
   if (resetProgressBtn) {
     resetProgressBtn.addEventListener("click", () => {
       if (confirm("Reset demo task progress back to original state?")) {
-        localStorage.removeItem(taskStorageKey);
-        dashboardTasks = JSON.parse(JSON.stringify(initialDashboardTasks));
-        activeTaskFilter = "all";
-        activeSearchTerm = "";
-        if (dashboardTaskSearch) dashboardTaskSearch.value = "";
-        if (dashboardClearSearch) dashboardClearSearch.hidden = true;
-        dashboardTaskFilters.forEach((btn) => {
-          const isAll = btn.dataset.taskFilter === "all";
-          btn.classList.toggle("is-active", isAll);
-          btn.setAttribute("aria-pressed", String(isAll));
-        });
-        updateDashboardProgress();
-        renderDashboardTasks();
-        showToast("Demo progress reset to default state.");
+        Promise.all(
+          initialDashboardTasks.map((task) =>
+            fetch(`${API_BASE_URL}/api/tasks/${task.number}`, {
+              method: "PUT",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ status: task.status }),
+            }).then((response) => {
+              if (!response.ok) {
+                throw new Error(`API returned ${response.status}`);
+              }
+            }),
+          ),
+        )
+          .then(() => {
+            activeTaskFilter = "all";
+            activeSearchTerm = "";
+            if (dashboardTaskSearch) dashboardTaskSearch.value = "";
+            if (dashboardClearSearch) dashboardClearSearch.hidden = true;
+            dashboardTaskFilters.forEach((btn) => {
+              const isAll = btn.dataset.taskFilter === "all";
+              btn.classList.toggle("is-active", isAll);
+              btn.setAttribute("aria-pressed", String(isAll));
+            });
+            setApiStatus(true);
+            loadTasksFromApi();
+            showToast("Demo progress reset to default state.");
+          })
+          .catch((error) => {
+            console.error("Unable to reset task progress.", error);
+            setApiStatus(false);
+            showToast("Unable to reset progress. Check the backend connection.");
+          });
       }
     });
   }
 
   // Initialize
-  loadSavedStatuses();
-  updateDashboardProgress();
-  renderDashboardTasks();
+  loadTasksFromApi();
 }
 
 // ============================================
